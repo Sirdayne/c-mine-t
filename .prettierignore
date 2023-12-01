@@ -1,0 +1,13 @@
+node_modules
+vault
+deploy
+static
+.nuxt
+.idea
+.nuxt
+tests/k6/reports/ssr-homepage.html
+package-lock.json
+**/*.yml
+**/*.yaml
+src/graphql/generated.ts
+src/assets/polyfills

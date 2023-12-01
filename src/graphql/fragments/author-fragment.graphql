@@ -1,0 +1,13 @@
+fragment AuthorFragment on Author {
+  id
+  avatar
+  twitter
+  linkedin
+  email
+  slug
+
+  authorTranslates {
+    showInAuthors
+    name
+  }
+}

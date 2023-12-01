@@ -1,0 +1,453 @@
+import getProperty from '~/assets/libs/getProperty';
+import { resolveAllStaticPromoButtonI18nSlugs } from '~/features/ads';
+
+export const getMappedI18n = (options) => {
+  const i18n = getProperty(options, 'i18n', []);
+  const map = getProperty(options, 'map', {});
+  const mapped = {};
+  Object.entries(map).forEach(([localKey, remoteKey]) => {
+    const translation = i18n.find((item) => item.key === remoteKey) || {};
+    const message = translation?.value ?? remoteKey;
+    mapped[localKey] = message;
+  });
+  return mapped;
+};
+
+export const restSlugMap = {
+  'changelly-widget.title': 'changelly-widget.title',
+
+  /* global */
+  by: 'by',
+  backToTop: 'back.to.top',
+  blockNewsTitle: 'price.indexes.block.news.title',
+  postsLoadMore: 'load.more.articles',
+  postsLoading: 'loading',
+  magazinePostAuthor: 'magazine.post.author',
+  breadcrumbsHome: 'breadcrumbs.home',
+  /* error */
+  error403Text: 'error.page.403.text',
+  error404Text: 'error.page.404.text',
+  error500Text: 'error.page.500.text',
+  errorGoBackButtonCap: 'error.page.btn.label',
+  errorGoBackButtonUrl: 'error.page.btn.url',
+  errorArticleTitlePrefix: 'error.page.title.prefix',
+  errorArticleTitlePostfix: 'error.page.title.postfix',
+  errorArticleDesc: 'error.page.article.text',
+  /* header */
+  headerLogoTitle: 'header.logo.title',
+  headerLogoSlogan: 'header.logo.slogan',
+  submitPressReleaseCap: 'submit.pr',
+  careersCap: 'careers',
+  careersUrl: 'careers.url',
+  advertiseCap: 'advertise',
+  advertiseUrl: 'advertise.url',
+  searchButtonCap: 'search.button.text',
+  appBannerAndroidText: 'app.android_app.notify.text',
+  appBannerAndroidBtn: 'app.android_app.notify.btn',
+  appBannerAndroidUrl: 'app.android_app.notify.url',
+  appBannerIosName: 'app.ios.banner.name',
+  appBannerIosDeveloper: 'app.ios.banner.developer',
+  appBannerIosText: 'app.ios.banner.text',
+  appBannerIosAction: 'app.ios.banner.action',
+  appBannerIosUrl: 'app.ios.banner.url',
+  profileLogIn: 'profile.sign_in',
+  profileCap: 'profile.profile',
+  profileEditProfile: 'profile.edit_profile',
+  profileLogOut: 'profile.sign_out',
+  /* footer */
+  aboutUsText: 'about.us.text',
+  footerIcpText: 'footer.icp.text',
+  companyDetails: 'about.us.operator',
+  termsOfServicesText: 'tos',
+  menuBadgeNew: 'footer.new',
+  footerNewsletter: 'footer.newsletter',
+  footerFollowUs: 'footer.followUs',
+  footerMobileApp: 'footer.mobileApp',
+  menuBadgeSoon: 'footer.soon',
+  menuBadgePartner: 'footer.partner',
+  subscribeButtonCap: 'subscribe.button.text',
+  subscribeEmailLabel: 'email',
+  subscribeSuccess: 'footer.subscribe.success',
+  subscribeError: 'footer.subscribe.error',
+  privacyPolicyCap: 'privacy.policy.btn.label',
+  privacyPolicyText: 'privacy.policy.text',
+  priceIndexesPageTitle: 'price.indexes.page.title',
+  journalistJoinUs: 'footer.call_to_action_button.join.are_you_journalist',
+  journalistJoinUs2: 'footer.call_to_action_button.join.join_us',
+  journalistJoinUsEmail: 'footer.journalist_join_us_email',
+  androidAppAlt: 'app.android_app.alt',
+  androidAppTitle: 'app.android_app.title',
+  androidAppUrlDesktop: 'app.android_app.url.desktop',
+  androidAppUrlMobile: 'app.android_app.url.mobile',
+  androidAppChinaUrl: 'app.android_app.china_url',
+  iosAppAlt: 'app.ios_app.alt',
+  iosAppTitle: 'app.ios_app.title',
+  iosAppUrlDesktop: 'app.ios_app.url.desktop',
+  iosAppUrlMobile: 'app.ios_app.url.mobile',
+  iosAppChinaUrl: 'app.ios_app.china_url',
+  qrCodeChina: 'app.qr.china_url',
+  /* main */
+  editorsChoice: 'editor.choice',
+  hotStories: 'posts.hot-stories',
+  pressReleases: 'index.press_releases',
+  marketReleases: 'index.market_releases',
+  flashNews: 'index.goto.flashnews.btn.label',
+  loadMore: 'index.press_releases.load-more',
+  hideItems: 'index.press_releases.hide-items',
+  stretchSubscribeTo: 'stretch_banners.youtube.subscribe_to',
+  stretchWatchNow: 'stretch_banners.youtube.watch_now',
+  stretchSponsored: 'stretch_banners.sponsored.badge',
+  mainPageCryptoNewsTitle: 'main.page.crypto.news.title',
+  /* promo buttons */
+  ...resolveAllStaticPromoButtonI18nSlugs(),
+  'promo-buttons-group.disclaimer': 'promo-buttons-group.disclaimer',
+  /* sidebar */
+  editorChoiceTitle: 'sidebar.news_widget.editors_choice',
+  advertiseLinkLabel: 'sidebar.banners.advertise.link.label',
+  advertiseLinkUrl: 'sidebar.banners.advertise.link',
+  newsSubscriberEmail: 'sidebar.subscribe.email_placeholder',
+  newsSubscriberSubscribe: 'sidebar.subscribe.button_text',
+  newsSubscriberLabel: 'new.subscribe.label',
+  newsSubscriberTitle: 'new.subscribe.title',
+  newsSubscriberSubtitle: 'new.subscribe.subtitle',
+  newsSubscriberSend: 'new.subscribe.send',
+  newsSubscriberPlaceholder: 'new.subscribe.placeholder',
+  newsSubscriberError: 'new.subscribe.error',
+  newsSubscriberSuccess: 'new.subscribe.success',
+  newsSubscriberThankYou: 'new.subscribe.thankyou',
+  newsSubscriberSuccessDescription: 'new.subscribe.success.description',
+  newsSubscriberDaily: 'new.subscribe.daily',
+  newsSubscriberWeekly: 'new.subscribe.weekly',
+  youtubeBannerChannelUrl: 'post.youtube-banner.channel-url',
+  youtubeBannerHeadline: 'sidebar.youtube-banner.headline',
+  youtubeBannerButtonLabel: 'post.youtube-banner.button-label',
+  /* tags */
+  tagTitleAltPostfix: 'tag.news',
+  tagMoreCap: 'page.tag.description.more',
+  tagLessCap: 'page.tag.description.less',
+  tagRecent: 'news.recent',
+  tagTop: 'news.top',
+  /* search */
+  youSearchedFor: 'search.you_searched_for',
+  searchTitle: 'search.site',
+  searchNothingFound: 'search.nothing.found',
+  searching: 'search.searching',
+  /* post */
+  pressRelease: 'index.press_release',
+  articleNftMintTitle: 'post.article.mint.nft.title',
+  articleNftMintButton: 'post.article.mint.nft.button',
+  socialClipboardLabel: 'social.clipboard.label',
+  socialWechatHeaderText: 'social.wechat.header.text',
+  socialWechatFooterText: 'social.wechat.footer.text',
+  socialWechatFooterError: 'social.wechat.footer.error',
+  articleMoreAboutTopic: 'article.more_about_topic',
+  articleRelatedNewsTitle: 'related_news.title',
+  articleDisclaimerPaid: 'paid.pr',
+  articleDisclaimerPaidMarketRelease: 'paid.mr',
+  articleDisclaimerDesc: 'pr.description',
+  articleDisclaimerDescMarketRelease: 'mr.description',
+  articleListenTo: 'article.actions.listen_to',
+  articleTotalShares: 'total.shares',
+  articleTotalViews: 'total.views',
+  blockshowPromoText: 'blockshow.promo.text',
+  mimicBlock: 'mimic.block.under.article',
+  postTitleSeoTail: 'post.title.seo-tail',
+  postLiveDataViewMore: 'post.live.data.view.more',
+  postAddReactionButton: 'post.add.reaction.button.text',
+  postChangeReactionButton: 'post.change.reaction.button.text',
+  /* ld-json SoftwareApplication */
+  softwareApplicationName: 'software.application.name',
+  softwareApplicationIosUrl: 'software.application.ios.url',
+  softwareApplicationAndroidUrl: 'software.application.android.url',
+  /* Front page subscriptions banner */
+  indexSubscriptionsBannerTitle: 'index.subscriptions.banner.title',
+  indexSubscriptionsBannerButtonLabel: 'index.subscriptions.banner.button.label',
+  /*Newsletter page*/
+  newsletterPageTitle: 'in.newsletter.subscription.page.title',
+  newsletterPageDescription: 'in.newsletter.subscription.page.title.description',
+  newsletterPagePopupDetailsEnter: 'in.newsletter.subscription.page.popup.details.enter',
+  newsletterPagePopupDetailsMore: 'in.newsletter.subscription.page.popup.details.more',
+  //Markets Outlook
+  newsletterPageMarketsOutlookTitle: 'in.newsletter.subscription.markets.outlook.title',
+  newsletterPageMarketsOutlookSubheading: 'in.newsletter.subscription.markets.outlook.subheading',
+  newsletterPageMarketsOutlookDescription: 'in.newsletter.subscription.markets.outlook.description',
+  //Altcoin Roundup
+  newsletterPageAltcoinRoundupTitle: 'in.newsletter.subscription.altcoin.roundup.title',
+  newsletterPageAltcoinRoundupSubheading: 'in.newsletter.subscription.altcoin.roundup.subheading',
+  newsletterPageAltcoinRoundupDescription: 'in.newsletter.subscription.altcoin.roundup.description',
+  //DeFi Newsletter
+  newsletterPageDeFiNewsletterTitle: 'in.newsletter.subscription.defi.newsletter.title',
+  newsletterPageDeFiNewsletterSubheading: 'in.newsletter.subscription.defi.newsletter.subheading',
+  newsletterPageDeFiNewsletterDescription: 'in.newsletter.subscription.defi.newsletter.description',
+  //Magazine Newsletter
+  newsletterPageMagazineNewsletterTitle: 'in.newsletter.subscription.magazine.newsletter.title',
+  newsletterPageMagazineNewsletterSubheading: 'in.newsletter.subscription.magazine.newsletter.subheading',
+  newsletterPageMagazineNewsletterDescription: 'in.newsletter.subscription.magazine.newsletter.description',
+  //Law Decoded
+  newsletterPageLawDecodedTitle: 'in.newsletter.subscription.law.decoded.title',
+  newsletterPageLawDecodedSubheading: 'in.newsletter.subscription.law.decoded.subheading',
+  newsletterPageLawDecodedDescription: 'in.newsletter.subscription.law.decoded.description',
+  //Nifty Newsletter
+  newsletterPageNiftyNewsletterTitle: 'in.newsletter.subscription.nifty.newsletter.title',
+  newsletterPageNiftyNewsletterSubheading: 'in.newsletter.subscription.nifty.newsletter.subheading',
+  newsletterPageNiftyNewsletterDescription: 'in.newsletter.subscription.nifty.newsletter.description',
+  //1 Minute Letter
+  newsletterPageOneMinuteLetterTitle: 'in.newsletter.subscription.one.minute.letter.title',
+  newsletterPageOneMinuteLetterSubheading: 'in.newsletter.subscription.one.minute.letter.subheading',
+  newsletterPageOneMinuteLetterDescription: 'in.newsletter.subscription.one.minute.letter.description',
+  //CT Consulting Biweekly Report
+  newsletterPageConsultingNewsletterTitle: 'in.newsletter.subscription.consulting.newsletter.title',
+  newsletterPageConsultingNewsletterSubheading: 'in.newsletter.subscription.consulting.newsletter.subheading',
+  newsletterPageConsultingNewsletterDescription: 'in.newsletter.subscription.consulting.newsletter.description',
+  //Crypto Biz Newsletter
+  newsletterPageCryptoBizNewsletterTitle: 'in.newsletter.subscription.crypto.biz.newsletter.title',
+  newsletterPageCryptoBizNewsletterSubheading: 'in.newsletter.subscription.crypto.biz.newsletter.subheading',
+  newsletterPageCryptoBizNewsletterDescription: 'in.newsletter.subscription.crypto.biz.newsletter.description',
+  //A week in review
+  newsletterPageWeekInReviewTitle: 'in.newsletter.subscription.week.in.review.title',
+  newsletterPageWeekInReviewSubheading: 'in.newsletter.subscription.week.in.review.subheading',
+  newsletterPageWeekInReviewDescription: 'in.newsletter.subscription.week.in.review.description',
+  /* In article subscription form */
+  inArticleSubscriptionFormInputPlaceholder: 'in.article.subscription.form.input.placeholder',
+  inArticleSubscriptionFormTos: 'in.article.subscription.form.tos',
+  inArticleSubscriptionFormBtnLabel: 'in.article.subscription.form.btn.label',
+  inArticleSubscriptionFormEmailErrorMsg: 'in.article.subscription.form.email.error.msg',
+  inArticleSubscriptionFormSuccessMsg: 'in.article.subscription.form.success.msg',
+  inArticleSubscriptionFormProcessing: 'in.article.subscription.form.processing',
+  inArticleSubscriptionFormComplete: 'in.article.subscription.form.complete',
+  // markets_outlook subs
+  inArticleSubscriptionFormMarketsOutlookDelivery: 'in.article.subscription.form.markets_outlook.delivery',
+  inArticleSubscriptionFormMarketsOutlookTitle: 'in.article.subscription.form.markets_outlook.title',
+  inArticleSubscriptionFormMarketsOutlookListId: 'in.article.subscription.form.markets_outlook.list-id',
+  // magazine subs
+  inArticleSubscriptionFormMagazineDelivery: 'in.article.subscription.form.magazine.delivery',
+  inArticleSubscriptionFormMagazineListId: 'in.article.subscription.form.magazine.list-id',
+  // defi_newsletter subs
+  inArticleSubscriptionFormDefiNewsletterDelivery: 'in.article.subscription.form.defi_newsletter.delivery',
+  inArticleSubscriptionFormDefiNewsletterTitle: 'in.article.subscription.form.defi_newsletter.title',
+  inArticleSubscriptionFormDefiNewsletterListId: 'in.article.subscription.form.defi_newsletter.list-id',
+  // nifty_newsletter subs
+  inArticleSubscriptionFormNiftyNewsletterDelivery: 'in.article.subscription.form.nifty_newsletter.delivery',
+  inArticleSubscriptionFormNiftyNewsletterTitle: 'in.article.subscription.form.nifty_newsletter.title',
+  inArticleSubscriptionFormNiftyNewsletterListId: 'in.article.subscription.form.nifty_newsletter.list-id',
+  // law_decoded subs
+  inArticleSubscriptionFormLawDecodedDelivery: 'in.article.subscription.form.law_decoded.delivery',
+  inArticleSubscriptionFormLawDecodedTitle: 'in.article.subscription.form.law_decoded.title',
+  inArticleSubscriptionFormLawDecodedListId: 'in.article.subscription.form.law_decoded.list-id',
+  // crypto_biz subs
+  inArticleSubscriptionFormCryptoBizDelivery: 'in.article.subscription.form.crypto_biz.delivery',
+  inArticleSubscriptionFormCryptoBizTitle: 'in.article.subscription.form.crypto_biz.title',
+  inArticleSubscriptionFormCryptoBizListId: 'in.article.subscription.form.crypto_biz.list-id',
+  // consulting_newsletter subs
+  inArticleSubscriptionFormConsultingNewsletterDelivery: 'in.article.subscription.form.consulting_newsletter.delivery',
+  inArticleSubscriptionFormConsultingNewsletterTitle: 'in.article.subscription.form.consulting_newsletter.title',
+  inArticleSubscriptionFormConsultingNewsletterListId: 'in.article.subscription.form.consulting_newsletter.list-id',
+  // one_minute_letter subs
+  inArticleSubscriptionFormOneMinuteLetterDelivery: 'in.article.subscription.form.one_minute_letter.delivery',
+  inArticleSubscriptionFormOneMinuteLetterListId: 'in.article.subscription.form.one_minute_letter.list-id',
+  // week_in_review subs
+  inArticleSubscriptionFormWeekInReviewDelivery: 'in.article.subscription.form.week_in_review.delivery',
+  inArticleSubscriptionFormWeekInReviewListId: 'in.article.subscription.form.week_in_review.list-id',
+  // common subs
+  inArticleSubscriptionFormEnjoy: 'in.article.subscription.form.enjoy',
+  inNewsletterSubscriptionFormButtonError: 'in.newsletter.subscription.form.button.error',
+  //glossary
+  glossaryHeading: 'glossary.heading',
+  glossaryDesc: 'glossary.desc',
+  glossaryKeyboard: 'glossary.keyboard',
+  //podcasts
+  podcastHeroHeading: 'podcast.heading',
+  podcastHeroDesc: 'podcast.description',
+  podcastDisclaimer: 'podcast.disclaimer',
+
+  podcastHostWith: 'podcast.host.with',
+  podcastHostAnd: 'podcast.host.and',
+  podcastListenOnHeading: 'podcast.listen.on.heading',
+  podcastAboutTheHostsHeading: 'podcast.about.the.hosts.heading',
+  podcastCarouselHeading: 'podcast.carousel.heading',
+  podcastRelatedArticlesHeading: 'podcast.related.article.heading',
+  //calculator
+  calculatorHeading: 'calculator.heading',
+  calculatorDesc: 'calculator.desc',
+  calculatorPopularConversions: 'calculator.popular.conversions',
+  calculatorTrendingHeading: 'calculator.trending.heading',
+  calculatorLastUpdated: 'calculator.last.updated',
+  calculatorSearchCrypto: 'calculator.search.for.crypto',
+  calculatorSearchFiat: 'calculator.search.for.fiat',
+  calculatorSearchNoOptions: 'calculator.search.no.options',
+  calculatorSidebarTitle: 'calculator.sidebar.title',
+  calculatorPleaseEnterPlaceholder: 'calculator.placeholder.enter',
+  //advertise
+  advertisePageCerosUrl: 'advertise.page.ceros.url',
+  advertiseDesktopAspectRatio: 'advertise.desktop.aspect.ratio',
+  advertiseMobileAspectRatio: 'advertise.mobile.aspect.ratio',
+  //learn (guides)
+  learnHeadingTitle: 'learn.heading.title',
+  learnHeadingDescription: 'learn.heading.description',
+  learnHeadingDescriptionWithLinks: 'learn.heading.description.with.links',
+  learnAllCategoryGuides: 'learn.all.category.guides',
+  learnAllCategoryTitle: 'learn.all.category.title',
+  guideSidebarContents: 'guide.sidebar.contents',
+  guideSearchbarPlaceholder: 'guide.searchbar.placeholder',
+  guideSearchFoundTitle: 'guide.search.found.title',
+  //coh
+  cohPreviewTitle: 'coh.preview.title',
+  cohPreviewDescription: 'coh.preview.description',
+  cohLeadingDescription: 'coh.leading.description',
+  cohDescription: 'coh.description',
+  cohPartnersTitle: 'coh.partners.title',
+  cohDonationsTitle: 'coh.donations.title',
+  cohRecentDonationsTitle: 'coh.recent.donations.title',
+  cohSupportProvided: 'coh.support.provided',
+  cohCommunityDescription: 'coh.community.description',
+  cohTargetSectionTitle: 'coh.target.section.title',
+  cohFooterSectionTitle: 'coh.footer.section.title',
+  cohFooterSectionDescription: 'coh.footer.section.description',
+  //events
+  eventsTitle: 'events.main.title',
+  eventsLetUsKnowEmail: 'events.email_let_us_know',
+  eventsHoldingLetUsKnow: 'events.holding.let.us.know',
+  eventsPostsTitle: 'events.posts.title',
+  eventsCalendarTitle: 'events.calendar.title',
+  eventsCalendarOnlyPromocode: 'events.filter.only_promo',
+  eventsVisitWebsite: 'events.slider.website',
+  eventsCalendarHideDetails: 'events.calendar.read_less',
+  eventsCalendarLoadMore: 'events.calendar.load_more',
+  eventsFilterSelectCountries: 'events.all.countries',
+  eventsFilterSelectCities: 'events.all.cities',
+  eventsFilterSelectMonths: 'events.all.months',
+  eventsFilterSelectTypes: 'events.all.types',
+  eventsFilterSelectCountriesLabel: 'events.countries.filter.label',
+  eventsFilterSelectCitiesLabel: 'events.cities.filter.label',
+  eventsFilterSelectMonthsLabel: 'events.months.filter.label',
+  eventsFilterSelectTypesLabel: 'events.types.filter.label',
+  eventsCalendarPlateDuration: 'events.calendar.duration',
+  eventsLearnMore: 'events.learn.more',
+  eventsFilter: 'events.filter',
+  eventsClearFilter: 'events.clear.filter',
+
+  // about us - hero
+  'about.hero.title': 'about.hero.title',
+  'about.hero.description': 'about.hero.description',
+
+  // about us - get in touch
+  'about.get-in-touch.title': 'about.get-in-touch.title',
+  'about.get-in-touch.advertise.label': 'about.get-in-touch.advertise.label',
+  'about.get-in-touch.advertise.url': 'about.get-in-touch.advertise.url',
+  'about.get-in-touch.email.editorial.address': 'about.get-in-touch.email.editorial.address',
+  'about.get-in-touch.email.editorial.label': 'about.get-in-touch.email.editorial.label',
+  'about.get-in-touch.email.opinion.address': 'about.get-in-touch.email.opinion.address',
+  'about.get-in-touch.email.opinion.label': 'about.get-in-touch.email.opinion.label',
+  'about.get-in-touch.email.advertising.address': 'about.get-in-touch.email.advertising.address',
+  'about.get-in-touch.email.advertising.label': 'about.get-in-touch.email.advertising.label',
+  'about.get-in-touch.email.partnership.address': 'about.get-in-touch.email.partnership.address',
+  'about.get-in-touch.email.partnership.label': 'about.get-in-touch.email.partnership.label',
+  'about.get-in-touch.email.franchise.address': 'about.get-in-touch.email.franchise.address',
+  'about.get-in-touch.email.franchise.label': 'about.get-in-touch.email.franchise.label',
+
+  // about us - brand resources
+  'about.brand-resources.title': 'about.brand-resources.title',
+  'about.brand-resources.link.guidelines.url': 'about.brand-resources.link.guidelines.url',
+  'about.brand-resources.link.guidelines.label': 'about.brand-resources.link.guidelines.label',
+  'about.brand-resources.link.brand-assets.url': 'about.brand-resources.link.brand-assets.url',
+  'about.brand-resources.link.brand-assets.label': 'about.brand-resources.link.brand-assets.label',
+
+  // about us - our team
+  'about.team.title': 'about.team.title',
+  'about.team.description': 'about.team.description',
+  'about.team.options.authors': 'about.team.options.authors',
+  'about.team.options.management-team': 'about.team.options.management-team',
+  'about.team.options.local-team': 'about.team.options.local-team',
+
+  // about us - footer
+  'about.footer.title': 'about.footer.title',
+  'about.footer.description': 'about.footer.description',
+};
+
+export const downloadPageSlugMap = {
+  title: 'download.page.title',
+  appStoreButtonLabel: 'download.page.appstore.button.label',
+  androidButtonLabel: 'download.page.android.button.label',
+  qrCodeUrl: 'download.page.qr-code.url',
+  iOsAppUrl: 'download.page.ios.app.url',
+  androidAppUrl: 'download.page.android.app.url',
+  mainImageAlt: 'download.page.main-image.alt',
+  qrCodeAlt: 'download.page.qr-code.alt',
+  logoImageAlt: 'download.page.logo.alt',
+};
+
+const buildSubscriptionsModalItemSlugs = () => {
+  const keyBase = 'modalListItem';
+  const i18nBase = 'subscriptions.modal.list.item';
+  return Array.from({ length: 6 }).reduce((acc, _, i) => ({
+    ...acc,
+    [`${keyBase}${i}Name`]: `${i18nBase}.${i}.name`,
+    [`${keyBase}${i}Description`]: `${i18nBase}.${i}.description`,
+    [`${keyBase}${i}DescriptionMobile`]: `${i18nBase}.${i}.description.mobile`,
+    [`${keyBase}${i}ListId`]: `${i18nBase}.${i}.list-id`,
+    [`${keyBase}${i}Regularity`]: `${i18nBase}.${i}.regularity`,
+  }));
+};
+
+export const subscriptionsModalSlugMap = {
+  modalTitle: 'subscriptions.modal.list.title',
+  modalSubtitle: 'subscriptions.modal.list.subtitle',
+  selectAllBtnLabel: 'subscriptions.modal.list.btn.select-all.label',
+  turnOffBtnLabel: 'subscriptions.modal.list.btn.turn-off.label',
+  formInputPlaceholder: 'subscriptions.modal.list.form.input.placeholder',
+  formInputSubmitBtnLabel: 'subscriptions.modal.list.form.btn.submit.label',
+  formNoItemsMessage: 'subscriptions.modal.list.form.no-items-selected.label',
+  formSubscribeError: 'subscriptions.modal.list.form.error.label',
+  formSubscribeSuccess: 'subscriptions.modal.list.form.success.label',
+  formTosText: 'subscriptions.modal.list.form.tos.text',
+  successModalTitle: 'subscriptions.modal.success.title',
+  successModalNotice: 'subscriptions.modal.success.notice',
+  successModalBtnLabel: 'subscriptions.modal.success.btn.label',
+  ...buildSubscriptionsModalItemSlugs(),
+};
+
+export const marketsSlugMap = {
+  title: 'markets.index.title',
+  description: 'markets.index.description',
+  viewMore: 'markets.index.view_more',
+  viewMoreLink: 'markets.news.view_more.link',
+  disclaimerTitle: 'markets.disclaimer.title',
+  disclaimerText: 'markets.disclaimer.text',
+  marketCap: 'markets.market_cap',
+  volume24h: 'markets.volume_24_h',
+  listTitle: 'markets.news.title',
+  listSidebarTitle: 'markets.news.sidebar.title',
+  recent: 'markets.news.recent.title',
+  top: 'markets.news.top.title',
+  guidesTitle: 'markets.news.guides.title',
+  mustReadTitle: 'markets.news.must_read.title',
+};
+
+export const priceIndexSlugMap = (symbol) => ({
+  homePage: 'page.home',
+  priceIndexesPage: 'page.price_indexes',
+  title: `price.index.${symbol}.title`,
+  label: `price.index.${symbol}.label`,
+  historyBlockTitle: `price.index.${symbol}.history.block-title`,
+  historyFromLabel: 'price.index.history.from-label',
+  historyToLabel: 'price.index.history.to-label',
+  historyDateLabel: 'price.index.history.date-label',
+  historyPriceLabel: 'price.index.history.price-label',
+  historyVolumeLabel: 'price.index.history.volume-label',
+  historyChangeLabel: 'price.index.history.change-label',
+  historyLoadingLabel: 'price.index.history.loading-label',
+  aboutBlockTitle: `price.index.${symbol}.about.title`,
+  aboutBlockText: `price.index.${symbol}.about.text`,
+  otherBlockTitle: 'price.index.other.block-title',
+  otherBlockViewAll: 'price.index.other.block-view-all',
+  summaryBlockTitle: `price.index.${symbol}.summary.block-title`,
+  chartBlockTitle: `price.index.${symbol}.chart.block-title`,
+  guidesBlockTitle: `price.index.${symbol}.guides.block-title`,
+  postsByTagBlockTitle: `price.index.${symbol}.posts-by-tag.block-title`,
+  descriptionBlockTextTitle: `price.index.${symbol}.description.title`,
+  descriptionBlockTextText: `price.index.${symbol}.description.text`,
+  press_release: 'Press Release',
+  price_index_texts_value: `price_index.texts.${symbol}.value`,
+  price_index_texts_market: `price_index.texts.${symbol}.market`,
+  price_index_texts_history: `price_index.texts.${symbol}.history`,
+});

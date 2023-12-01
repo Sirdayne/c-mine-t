@@ -1,0 +1,85 @@
+query TagPageQuery($short: String, $slug: String!, $order: String, $offset: Int!, $length: Int!) {
+  locale(short: $short) {
+    tag(slug: $slug) {
+      cacheKey
+      id
+      slug
+      avatar
+      createdAt
+      updatedAt
+      redirectRelativeUrl
+      alternates {
+        cacheKey
+        short
+        domain
+        id
+        code
+      }
+      tagTranslates {
+        cacheKey
+        id
+        title
+        metaTitle
+        pageTitle
+        description
+        metaDescription
+        keywords
+      }
+      posts(order: $order, offset: $offset, length: $length) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+            slug
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+    }
+  }
+}

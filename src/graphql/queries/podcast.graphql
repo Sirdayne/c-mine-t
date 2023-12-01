@@ -1,0 +1,38 @@
+query PodcastQuery($short: String, $slug: String) {
+  locale(short: $short) {
+    podcast(slug: $slug) {
+      tag {
+        slug
+      }
+      buzzsproutPodcast {
+        ...buzzsproutPodcastFields
+      }
+      authorsWithDesc {
+        ...authorWithDescFields
+      }
+      slug
+      title
+      description
+      apple
+      spotify
+      google
+      amazonMusic
+      audible
+      iheartradio
+      tunein
+      podcastAddict
+      podchaser
+      podcastIndex
+      pocketCasts
+      deezer
+      listenNotes
+      playerfm
+      overcast
+      castro
+      castbox
+      podfriend
+      goodpods
+      disclaimerPrefix
+    }
+  }
+}

@@ -1,0 +1,12 @@
+query CoinMetaQuery($short: String, $slug: String!) {
+  locale(short: $short) {
+    coin(slug: $slug) {
+      name
+      label
+      decimals {
+        value
+        currency
+      }
+    }
+  }
+}

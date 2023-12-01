@@ -1,0 +1,9 @@
+query GlossaryPageQuery($short: String) {
+  locale(short: $short) {
+    glossary {
+      id
+      title
+      link
+    }
+  }
+}

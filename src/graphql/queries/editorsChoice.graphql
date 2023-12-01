@@ -1,0 +1,21 @@
+query EditorsChoiceQuery($short: String) {
+  locale(short: $short) {
+    editorsPosts {
+      cacheKey
+      id
+      slug
+      category {
+        slug
+        id
+      }
+      postTranslate {
+        cacheKey
+        id
+        title
+        avatar
+        published
+        publishedHumanFormat
+      }
+    }
+  }
+}

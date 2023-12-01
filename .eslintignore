@@ -1,0 +1,10 @@
+node_modules
+static
+public
+.nuxt
+.build
+.temp
+src/plugins/chartbeat.client.js
+src/graphql/generated.ts
+src/assets/polyfills
+tests/k6/

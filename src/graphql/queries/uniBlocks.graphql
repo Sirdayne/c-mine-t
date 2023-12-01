@@ -1,0 +1,41 @@
+query uniBlocksQuery($short: String, $type: String) {
+  locale(short: $short) {
+    universalBlocks(type: $type) {
+      cacheKey
+      id
+      type
+      universalBlockTranslates {
+        cacheKey
+        id
+        title
+      }
+      posts {
+        data {
+          cacheKey
+          id
+          slug
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+          }
+        }
+      }
+    }
+  }
+}

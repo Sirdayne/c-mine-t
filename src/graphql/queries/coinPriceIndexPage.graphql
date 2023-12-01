@@ -1,0 +1,149 @@
+query CoinPriceIndexPage(
+  $pageUrl: String!
+  $coinSlug: String!
+  $guideSlug: String = ""
+  $short: String = "en"
+  $slugsMap: [String] = []
+) {
+  locale(short: $short) {
+    i18n: translates(slugs: $slugsMap) {
+      cacheKey
+      key
+      value
+    }
+    seoMeta(url: $pageUrl) {
+      cacheKey
+      id
+      seoMetaUrl
+      seoMetaTitle
+      seoMetaDescription
+      seoMetaKeywords
+    }
+    posts: tag(slug: $coinSlug) {
+      cacheKey
+      id
+      postsByTime: posts(offset: 0, length: 5) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+      postsByViews: posts(order: "postViews", offset: 0, length: 5) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+    }
+    guideCategory(slug: $guideSlug) {
+      slug
+      translate {
+        title
+      }
+      guides {
+        slug
+        coverImg
+        coverImgCaption
+        translate {
+          title
+        }
+      }
+    }
+  }
+}

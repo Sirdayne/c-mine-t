@@ -1,0 +1,191 @@
+query InfiniteScrollArticlesQuery(
+  $short: String
+  $promo: Boolean
+  $beforePostId: ID
+  $categorySlug: String
+  $relatedLength: Int
+) {
+  locale(short: $short) {
+    posts(
+      length: 1
+      order: "postPublishedTime"
+      promo: $promo
+      beforePostId: $beforePostId
+      categorySlug: $categorySlug
+    ) {
+      hasMorePosts
+      data {
+        cacheKey
+        id
+        deletedAt
+        slug
+        views
+        pixelUrl
+        postOptions {
+          cacheKey
+          hideDisclaimer
+          isPromo
+          __typename
+        }
+        alternates {
+          cacheKey
+          id
+          short
+          domain
+          code
+          __typename
+        }
+        postTranslate {
+          cacheKey
+          id
+          title
+          leadText
+          twitterLeadText
+          facebookLeadText
+          bodyText
+          description
+          socialDescription
+          avatar
+          youtube
+          audio
+          editorsPriority
+          published
+          publishedHumanFormat
+          facebookShares
+          twitterShares
+          redditShares
+          totalShares
+          noIndex
+          __typename
+          author {
+            cacheKey
+            avatar
+            gender
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+        }
+        author {
+          cacheKey
+          id
+          slug
+          avatar
+          gender
+          innovationCircleUrl
+          authorTranslates {
+            cacheKey
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        postBadge {
+          cacheKey
+          id
+          label
+          postBadgeTranslates {
+            cacheKey
+            id
+            title
+            __typename
+          }
+          __typename
+        }
+        category {
+          cacheKey
+          id
+          slug
+          categoryTranslates {
+            cacheKey
+            id
+            title
+            __typename
+          }
+        }
+        tags {
+          cacheKey
+          id
+          slug
+          tagTranslates {
+            cacheKey
+            id
+            title
+            __typename
+          }
+          __typename
+        }
+        topics {
+          selection
+          post {
+            cacheKey
+            id
+            views
+            slug
+            category {
+              cacheKey
+              id
+              __typename
+            }
+            postTranslate {
+              cacheKey
+              id
+              title
+              leadText
+              published
+              avatar
+              __typename
+              author {
+                cacheKey
+                id
+                slug
+                authorTranslates {
+                  cacheKey
+                  id
+                  name
+                }
+              }
+            }
+            __typename
+          }
+          __typename
+        }
+        relatedPosts(length: $relatedLength) {
+          cacheKey
+          id
+          slug
+          category {
+            cacheKey
+            id
+            __typename
+          }
+          postTranslate {
+            cacheKey
+            avatar
+            title
+            __typename
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          __typename
+        }
+        showShares
+        showStats
+        __typename
+      }
+    }
+  }
+}

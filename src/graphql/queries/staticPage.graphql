@@ -1,0 +1,24 @@
+query StaticPage($short: String!, $slug: String!) {
+  locale(short: $short) {
+    staticPage(slug: $slug) {
+      id
+      title
+
+      socialImg
+      socialImgCaption
+      coverImg
+      coverImgCaption
+
+      about
+
+      seoTitle
+      seoKeywords
+      seoDescription
+
+      createdAt
+      updatedAt
+
+      content
+    }
+  }
+}

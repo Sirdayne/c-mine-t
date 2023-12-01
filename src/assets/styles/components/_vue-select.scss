@@ -1,0 +1,127 @@
+@import 'vue-select/dist/vue-select.css';
+.vs__dropdown-toggle {
+  background: $color-white;
+  border: 1px solid $color-gray-400;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 24px;
+  line-height: 24px;
+  align-items: center;
+  height: 100%;
+}
+.vs__dropdown-toggle > * {
+  margin: 0;
+  padding: 0;
+}
+.vs__selected {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: $color-gray-700;
+  font-weight: 600;
+  &:hover {
+    color: $color-black;
+  }
+}
+.vs__selected-options {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: $color-gray-700;
+  height: 26px;
+  &:hover {
+    color: $color-black;
+  }
+}
+.vs__dropdown-option {
+  padding: 8px 20px;
+}
+.vs--open .vs__dropdown-toggle {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom-color: #c8d0d3 !important;
+}
+.vs__search,
+.vs__search:focus::placeholder {
+  color: #809098;
+}
+.vs__search,
+.vs__search:focus {
+  margin: 0;
+}
+.vs__dropdown-menu {
+  background: $color-white;
+  border: 1px solid $color-gray-400;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 3px;
+  min-width: 200px;
+  left: -50%;
+}
+.vs--open .vs__selected {
+  display: none;
+}
+.vs--open .vs__search {
+  display: inline-block;
+  opacity: 1;
+}
+.vs__search {
+  opacity: 0;
+}
+.vs__open-indicator {
+  margin-left: 4px;
+}
+@media screen and (max-width: 500px) {
+  .vs__dropdown-toggle {
+    padding: 14px 8px;
+  }
+  .vs__search {
+    padding: 0;
+  }
+  .vs__search::placeholder {
+    font-size: 12px;
+  }
+}
+@media screen and (min-width: 500px) {
+  .vs__dropdown-menu {
+    left: 0;
+  }
+}
+
+.converter--rtl .vs__dropdown-menu {
+  left: 0;
+}
+.from-sidebar .vs__dropdown-menu {
+  left: -20%;
+  width: 130px;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 390px) {
+  .from-sidebar .vs__dropdown-menu {
+    left: -10%;
+  }
+}
+.from-sidebar--rtl .vs__dropdown-menu {
+  left: 0;
+}
+@media screen and (min-width: 1024px) {
+  .from-sidebar .vs__dropdown-menu {
+    left: -50%;
+  }
+  .from-sidebar--rtl .vs__dropdown-menu {
+    left: 0;
+  }
+}
+.from-sidebar .vs__dropdown-option {
+  display: inline-block;
+}
+.from-sidebar .vs__dropdown-toggle {
+  border-radius: 4px;
+}

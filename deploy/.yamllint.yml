@@ -1,0 +1,36 @@
+---
+
+extends: default
+
+ignore: |
+  vault.yml
+
+rules:
+  brackets:
+    max-spaces-inside: 1
+  commas:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  comments:
+    require-starting-space: true
+    min-spaces-from-content: 4
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  document-end:
+    present: false
+  document-start:
+    present: true
+  empty-lines:
+    max: 1
+  empty-values:
+    forbid-in-flow-mappings: true
+    forbid-in-block-mappings: true
+  line-length:
+    max: 160
+    level: warning
+  indentation:
+    spaces: 2
+    indent-sequences: false
+    check-multi-line-strings: true
+  key-duplicates: enable

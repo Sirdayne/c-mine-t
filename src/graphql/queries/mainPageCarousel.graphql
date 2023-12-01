@@ -1,0 +1,46 @@
+query MainPageCarouselQuery($short: String) {
+  locale(short: $short) {
+    carouselPosts {
+      cacheKey
+      id
+      slug
+      postTranslate {
+        id
+        title
+        avatar
+        published
+        publishedHumanFormat
+        author {
+          cacheKey
+          id
+          slug
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+      }
+      category {
+        cacheKey
+        id
+        slug
+        categoryTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+      author {
+        cacheKey
+        id
+        slug
+        authorTranslates {
+          cacheKey
+          id
+          name
+        }
+      }
+    }
+  }
+}

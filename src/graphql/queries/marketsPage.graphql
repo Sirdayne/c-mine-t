@@ -1,0 +1,180 @@
+query MarketsPageQuery($short: String = "en", $slugsMap: [String] = []) {
+  locale(short: $short) {
+    i18n: translates(slugs: $slugsMap) {
+      cacheKey
+      key
+      value
+    }
+    markets: tag(slug: "markets") {
+      cacheKey
+      id
+      postsByTime: posts(offset: 0, length: 6) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+            slug
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+      postsByViews: posts(order: "postViews", offset: 0, length: 5) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+    }
+    trading101: tag(slug: "trading101") {
+      cacheKey
+      id
+      postsByTime: posts(offset: 0, length: 12) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+    }
+  }
+}

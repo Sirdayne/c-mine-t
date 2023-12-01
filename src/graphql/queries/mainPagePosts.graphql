@@ -1,0 +1,63 @@
+query MainPagePostsQuery($short: String, $offset: Int!, $length: Int!, $place: String = "index") {
+  locale(short: $short) {
+    posts(order: "postPublishedTime", offset: $offset, length: $length, place: $place) {
+      data {
+        cacheKey
+        id
+        slug
+        postTranslate {
+          cacheKey
+          id
+          title
+          avatar
+          published
+          publishedHumanFormat
+          leadText
+          author {
+            cacheKey
+            id
+            slug
+            innovationCircleUrl
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+        }
+        category {
+          cacheKey
+          id
+          slug
+          categoryTranslates {
+            cacheKey
+            id
+            title
+          }
+        }
+        author {
+          cacheKey
+          id
+          slug
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+        postBadge {
+          cacheKey
+          id
+          label
+          postBadgeTranslates {
+            cacheKey
+            id
+            title
+          }
+        }
+      }
+      postsCount
+      hasMorePosts
+    }
+  }
+}

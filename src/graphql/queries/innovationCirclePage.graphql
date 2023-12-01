@@ -1,0 +1,280 @@
+query innovationCirclePosts($short: String, $offset: Int!, $length: Int!, $relatedLength: Int) {
+  locale(short: $short) {
+    posts(offset: $offset, length: $length, place: "innovation-circle") {
+      data {
+        cacheKey
+        id
+        deletedAt
+        slug
+        views
+        pixelUrl
+        postOptions {
+          cacheKey
+          hideDisclaimer
+          isPromo
+          __typename
+        }
+        alternates {
+          cacheKey
+          id
+          short
+          domain
+          code
+          __typename
+        }
+        postTranslate {
+          cacheKey
+          id
+          title
+          leadText
+          twitterLeadText
+          facebookLeadText
+          bodyText
+          description
+          socialDescription
+          avatar
+          youtube
+          audio
+          editorsPriority
+          published
+          publishedHumanFormat
+          facebookShares
+          twitterShares
+          redditShares
+          totalShares
+          noIndex
+          __typename
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+        }
+        author {
+          cacheKey
+          id
+          slug
+          avatar
+          gender
+          innovationCircleUrl
+          authorTranslates {
+            cacheKey
+            id
+            name
+            __typename
+          }
+          __typename
+        }
+        postBadge {
+          cacheKey
+          id
+          label
+          postBadgeTranslates {
+            cacheKey
+            id
+            title
+            __typename
+          }
+          __typename
+        }
+        category {
+          cacheKey
+          id
+          slug
+          categoryTranslates {
+            cacheKey
+            id
+            title
+            __typename
+          }
+          posts(offset: 0, length: 10, order: "postPublishedTime") {
+            data {
+              cacheKey
+              id
+              slug
+              views
+              pixelUrl
+              alternates {
+                cacheKey
+                id
+                short
+                domain
+                code
+                __typename
+              }
+              postTranslate {
+                cacheKey
+                id
+                title
+                leadText
+                twitterLeadText
+                facebookLeadText
+                bodyText
+                description
+                socialDescription
+                avatar
+                youtube
+                audio
+                editorsPriority
+                published
+                publishedHumanFormat
+                totalShares
+                noIndex
+                __typename
+                author {
+                  cacheKey
+                  id
+                  slug
+                  authorTranslates {
+                    cacheKey
+                    id
+                    name
+                  }
+                }
+              }
+              author {
+                cacheKey
+                id
+                slug
+                avatar
+                authorTranslates {
+                  cacheKey
+                  id
+                  name
+                  __typename
+                }
+                __typename
+              }
+              postBadge {
+                cacheKey
+                id
+                label
+                postBadgeTranslates {
+                  cacheKey
+                  id
+                  title
+                  __typename
+                }
+                __typename
+              }
+              category {
+                cacheKey
+                id
+                slug
+                categoryTranslates {
+                  cacheKey
+                  id
+                  title
+                  __typename
+                }
+                __typename
+              }
+              tags {
+                cacheKey
+                id
+                slug
+                tagTranslates {
+                  cacheKey
+                  id
+                  title
+                  __typename
+                }
+                __typename
+              }
+              showShares
+              showStats
+              __typename
+            }
+            postsCount
+            __typename
+          }
+          __typename
+        }
+        tags {
+          cacheKey
+          id
+          slug
+          tagTranslates {
+            cacheKey
+            id
+            title
+            __typename
+          }
+          __typename
+        }
+        topics {
+          selection
+          post {
+            cacheKey
+            id
+            views
+            slug
+            category {
+              cacheKey
+              id
+              __typename
+            }
+            postTranslate {
+              cacheKey
+              id
+              title
+              leadText
+              published
+              avatar
+              __typename
+              author {
+                cacheKey
+                id
+                slug
+                authorTranslates {
+                  cacheKey
+                  id
+                  name
+                }
+              }
+            }
+            __typename
+          }
+          __typename
+        }
+        relatedPosts(length: $relatedLength) {
+          cacheKey
+          id
+          slug
+          category {
+            cacheKey
+            id
+            __typename
+          }
+          postTranslate {
+            cacheKey
+            avatar
+            title
+            __typename
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          __typename
+        }
+        showShares
+        showStats
+        __typename
+      }
+      postsCount
+      hasMorePosts
+    }
+  }
+}

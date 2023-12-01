@@ -1,0 +1,64 @@
+query SearchPagePostsQuery($short: String = "en", $offset: Int!, $length: Int!, $query: String!) {
+  locale(short: $short) {
+    postsSearch(offset: $offset, length: $length, query: $query) {
+      data {
+        id
+        slug
+        views
+        postTranslate {
+          cacheKey
+          id
+          title
+          leadText
+          avatar
+          published
+          publishedHumanFormat
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+        }
+        category {
+          cacheKey
+          id
+          slug
+          categoryTranslates {
+            cacheKey
+            id
+            title
+          }
+        }
+        author {
+          cacheKey
+          id
+          slug
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+        postBadge {
+          cacheKey
+          id
+          label
+          postBadgeTranslates {
+            cacheKey
+            id
+            title
+          }
+        }
+        showShares
+        showStats
+      }
+      postsCount
+      hasMorePosts
+    }
+  }
+}

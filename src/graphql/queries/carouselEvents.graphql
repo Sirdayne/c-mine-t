@@ -1,0 +1,7 @@
+query CarouselEvents($short: String) {
+  locale(short: $short) {
+    carouselEvents {
+      ...EventFragment
+    }
+  }
+}

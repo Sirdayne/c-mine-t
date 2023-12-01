@@ -1,0 +1,59 @@
+@import '~/assets/styles/_mixins.scss';
+@import '~/assets/styles/_vars.scss';
+
+// gray 100 in vars has another color
+$color-gray-100-local: #fafafa;
+
+div {
+  &[data-ct-widget='table-of-contents'] {
+    counter-reset: table-of-contents;
+    margin-bottom: 2rem;
+    a {
+      @include section-title(16px, 600, 21.6px);
+      width: fit-content;
+      counter-increment: table-of-contents;
+      display: block;
+      @media (max-width: $sm) {
+        border-bottom: none;
+      }
+      &:not(:last-child) {
+        margin-bottom: 1.1rem;
+      }
+      &:before {
+        content: counter(table-of-contents) '. ';
+        @media (max-width: $sm) {
+          border-bottom: 3px solid #fb0;
+        }
+      }
+    }
+    &:after {
+      counter-reset: content-block;
+    }
+    & [data-ct-widget='table-of-contents-link-text'] {
+      @media (max-width: $sm) {
+        border-bottom: 3px solid #fb0;
+      }
+    }
+  }
+
+  &[data-ct-widget='content-block'] {
+    counter-increment: content-block;
+    background: $color-gray-100-local;
+    border: 1px solid $color-gray-400;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 1.8rem;
+
+    &:before {
+      @include section-title(18px, 700, 18px);
+      content: counter(content-block);
+      display: block;
+      background-color: $color-orange-500;
+      border-radius: 5px;
+      vertical-align: center;
+      width: fit-content;
+      padding: 5px 9px;
+      margin-bottom: 8px;
+    }
+  }
+}

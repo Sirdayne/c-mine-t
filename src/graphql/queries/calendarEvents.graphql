@@ -1,0 +1,27 @@
+query CalendarEvent(
+  $short: String
+  $monthDate: DateTime
+  $offset: Int
+  $categorySlug: String
+  $cityId: ID
+  $countryCode: String
+  $length: Int
+  $onlyWithPromocode: Boolean
+) {
+  locale(short: $short) {
+    calendarEvents(
+      monthDate: $monthDate
+      offset: $offset
+      categorySlug: $categorySlug
+      cityId: $cityId
+      countryCode: $countryCode
+      length: $length
+      onlyWithPromocode: $onlyWithPromocode
+    ) {
+      data {
+        ...EventFragment
+      }
+      hasMore
+    }
+  }
+}

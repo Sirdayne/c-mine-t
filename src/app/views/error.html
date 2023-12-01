@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <title>Cointelegraph Bitcoin & Ethereum Blockchain News</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        height: 100%;
+        font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      }
+      html[lang='jp'] {
+        font-family: Open Sans, YuGothic, Yu Gothic, ヒラギノ角ゴ ProN, Hiragino Kaku Gothic ProN, 游ゴシック,
+          游ゴシック体, メイリオ, Meiryo, ＭＳ ゴシック, MS Gothic, HiraKakuProN-W3, TakaoExゴシック, TakaoExGothic,
+          Droid Sans Japanese, sans-serif;
+      }
+      html[lang='cn'] {
+        font-family: Open Sans, 微軟正黑體, Microsoft JhengHei, Microsoft JhengHei UI, 微軟雅黑, Microsoft YaHei,
+          Microsoft YaHei UI, sans-serif;
+      }
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 14px;
+        line-height: 1.375;
+        color: #333;
+        background-color: #fff;
+      }
+      .layout {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .header {
+        background-color: #253137;
+      }
+      .header-wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        max-width: 740px;
+        margin: 10px auto;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .logo {
+        display: block;
+        width: auto;
+        height: 30px;
+      }
+      .content {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+      .content-wrapper {
+        max-width: 740px;
+        margin: 30px auto 70px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+      }
+      .code {
+        display: block;
+        color: #eceff1;
+        font-size: 116px;
+        font-weight: 800;
+        line-height: 0.77;
+        text-shadow: -1px -1px 0 #465a65, 1px -1px 0 #465a65, -1px 1px 0 #465a65, 1px 1px 0 #465a65;
+      }
+      .message {
+        display: block;
+        margin-top: 16px;
+        color: #465a65;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+      @media (min-width: 768px) {
+        .content-wrapper {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+        }
+        .message {
+          -ms-flex-negative: 0;
+          flex-shrink: 0;
+          margin-left: 32px;
+        }
+        html[dir='rtl'] .message {
+          margin-left: 0;
+          margin-right: 32px;
+        }
+      }
+      @media (min-width: 992px) {
+        .content-wrapper,
+        .header-wrapper {
+          max-width: 960px;
+        }
+        .code {
+          font-size: 208px;
+        }
+        .message {
+          margin-left: 64px;
+        }
+        html[dir='rtl'] .message {
+          margin-left: 0;
+          margin-right: 64px;
+        }
+      }
+    </style>
+    <script>
+      parcelRequire = (function (e) {
+        var r = 'function' == typeof parcelRequire && parcelRequire,
+          n = 'function' == typeof require && require,
+          i = {};
+        function u(e, u) {
+          if (e in i) return i[e];
+          var t = 'function' == typeof parcelRequire && parcelRequire;
+          if (!u && t) return t(e, !0);
+          if (r) return r(e, !0);
+          if (n && 'string' == typeof e) return n(e);
+          var o = new Error("Cannot find module '" + e + "'");
+          throw ((o.code = 'MODULE_NOT_FOUND'), o);
+        }
+        return (
+          (u.register = function (e, r) {
+            i[e] = r;
+          }),
+          (i = e(u)),
+          (u.modules = i),
+          u
+        );
+      })(function (require) {
+        function a() {
+          var e = {
+              en: { message: 'Internal Server Error' },
+              es: { message: 'Error interno del servidor' },
+              cn: { message: '\u5185\u90E8\u670D\u52A1\u5668\u9519\u8BEF' },
+              de: { message: 'Interner Serverfehler' },
+              it: { message: 'Errore interno del server' },
+              ar: {
+                message: '\u062E\u0637\u0623 \u062F\u0627\u062E\u0644\u064A \u0628\u0627\u0644\u062E\u0627\u062F\u0645',
+              },
+              rs: { message: 'Interna gre\u0161ka servera' },
+              jp: { message: '\u30B5\u30FC\u30D0\u30FC\u30A8\u30E9\u30FC' },
+              br: { message: 'Erro interno do servidor' },
+              kr: { message: '\uC778\uD130\uB137 \uC11C\uBC84 \uC624\uB958' },
+              tr: { message: '\u0130\xE7 Sunucu Hatas\u0131' },
+            },
+            r = document.documentElement,
+            s = document.getElementById('message'),
+            n = document.location.host.split('.')[0],
+            t = void 0 !== e[n] ? n : 'en';
+          (r.lang = t), 'ar' === t && (r.dir = 'rtl');
+          var a = e[t] && e[t].message;
+          a && (s.textContent = a);
+        }
+        document.addEventListener('DOMContentLoaded', a);
+        return { imtx: {} };
+      });
+    </script>
+  </head>
+  <body>
+    <div class="layout">
+      <div class="header">
+        <div class="header-wrapper">
+          <svg
+            class="logo"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 183 30"
+          >
+            <path
+              fill="#fff"
+              d="M9.73 1.38a11 11 0 016.78 2.07h1.94C16.88 1.38 13.57 0 9.73 0 4.37 0 0 2.76 0 6.22v12.43c0 3.45 4.17 6.11 9.73 6.21a14.5 14.5 0 001.74-.1l.38-1.47a12.56 12.56 0 01-2.12.19c-4.17 0-8.34-2.32-8.34-4.84a2 2 0 01.14-.8c2.19 2.09 4.73 2.88 8.2 2.88a18.46 18.46 0 002.78-.18l.38-1.49a16 16 0 01-3.16.29c-4.17 0-5.56-.85-7.49-2.77a3.13 3.13 0 01-.71-1.25 2.08 2.08 0 01-.14-.82 2 2 0 01.14-.8c2.19 2.08 4.73 2.87 8.2 2.87a15.53 15.53 0 003.9-.41l.4-1.59a11.84 11.84 0 01-4.3.62c-3.47-.15-5.56-.84-7.49-2.76a3.1 3.1 0 01-.71-1.26 2 2 0 01-.14-.81 2.36 2.36 0 01.14-.8c2.19 2.08 4.73 2.87 8.2 2.87a12.74 12.74 0 005-.81l.32-1.26H13.7a12 12 0 01-4 .69c-4.17 0-8.34-2.32-8.34-4.83S5 1.38 9.73 1.38z"
+            ></path>
+            <path
+              fill="#ffc200"
+              d="M8.83 10.35l1.74-6.9h20.86l-1.74 6.9h-7l-.84 2.48L28 11.31l-12.73 18L17 21l-5.62 4.23 3.73-14.84zM10.62 9h6.26l-3.22 12.75 5.45-4.06L18 23.21l6.78-9.66-5 1.24L21.74 9h7l1-4.14H11.65zM182.62 18.36h-2.41v-4.9h-4.52v4.9h-2.43V7h2.43v4.44h4.52V7h2.41zM170 10.56a3.45 3.45 0 01-1.15 2.8 5 5 0 01-3.28 1h-1v4h-2.42V7h3.64a4.82 4.82 0 013.16.89 3.22 3.22 0 011.05 2.67zm-5.47 1.78h.8a2.67 2.67 0 001.67-.43 1.53 1.53 0 00.56-1.27 1.56 1.56 0 00-.47-1.25 2.17 2.17 0 00-1.45-.4h-1.1zm-8.92 1.3c-.77-2.44-1.2-3.83-1.3-4.15s-.16-.57-.2-.76q-.27 1-1.48 4.91zm1.39 4.73l-.82-2.7h-4.16l-.83 2.7h-2.61l4-11.4h3l4 11.4zM140.85 14v4.35h-2.42V7h3.33a5.71 5.71 0 013.44.84 3 3 0 011.12 2.56 3 3 0 01-.55 1.77 3.69 3.69 0 01-1.57 1.23q1.65 2.47 3.35 4.94h-2.68L142.14 14zm0-2h.79a3 3 0 001.7-.38 1.36 1.36 0 00.55-1.19 1.25 1.25 0 00-.56-1.15 3.42 3.42 0 00-1.74-.28h-.73zm-10.73 0h4.53v5.87a12.89 12.89 0 01-2.07.5 14.45 14.45 0 01-2 .14 5 5 0 01-4-1.51 6.25 6.25 0 01-1.36-4.32 5.7 5.7 0 011.58-4.28 6.06 6.06 0 014.39-1.53 8.64 8.64 0 013.39.69l-.81 1.92a5.89 5.89 0 00-2.6-.62 3.2 3.2 0 00-2.51 1.05 4.05 4.05 0 00-1 2.81 4.55 4.55 0 00.76 2.82 2.65 2.65 0 002.22 1 8.27 8.27 0 001.54-.15V14h-2.17zm-7.78 6.37h-6.57V7h6.57v2h-4.15v2.49h3.86v2h-3.86v2.92h4.15zm-16.67 0V7h2.42v9.35h4.63v2zm-3.45 0h-6.57V7h6.57v2h-4.15v2.49h3.86v2h-3.86v2.92h4.15zm-12.5 0H87.3V9h-3.1V7h8.62v2h-3.1zm-8.34 0h-3.07l-5-8.58h-.07c.1 1.51.15 2.6.15 3.24v5.34h-2.13V7h3l5 8.49q-.12-2.2-.12-3.12V7h2.18zm-16.48 0V7h2.42v11.36zm-11.77-5.69a4.72 4.72 0 00.73 2.86 2.57 2.57 0 002.17 1q2.91 0 2.91-3.83c0-2.56-1-3.84-2.89-3.84a2.56 2.56 0 00-2.18 1 4.69 4.69 0 00-.74 2.87zm8.32 0a6.11 6.11 0 01-1.4 4.32 5.23 5.23 0 01-4 1.51A5.2 5.2 0 0152 17a6.14 6.14 0 01-1.41-4.34A6.08 6.08 0 0152 8.33a5.31 5.31 0 014-1.49 5.22 5.22 0 014 1.5 6.16 6.16 0 011.39 4.33zM45 8.85a2.48 2.48 0 00-2.12 1 4.72 4.72 0 00-.75 2.84q0 3.79 2.87 3.79a9.3 9.3 0 002.91-.59v2a8.1 8.1 0 01-3.14.58A4.81 4.81 0 0141 17a6.3 6.3 0 01-1.32-4.3 7 7 0 01.65-3.1 4.72 4.72 0 011.86-2A5.58 5.58 0 0145 6.85a7.75 7.75 0 013.34.8l-.78 2a12 12 0 00-1.29-.53A4 4 0 0045 8.85z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="content">
+        <div class="content-wrapper">
+          <span class="code"> 500 </span>
+          <span
+            class="message"
+            id="message"
+          >
+            Internal Server Error
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

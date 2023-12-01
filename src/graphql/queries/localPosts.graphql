@@ -1,0 +1,63 @@
+query LocalPostsQuery($short: String, $offset: Int = 0, $length: Int = 10) {
+  locale(short: $short) {
+    localPosts {
+      cacheKey
+      alternates {
+        cacheKey
+        id
+        short
+        domain
+        code
+      }
+      posts(offset: $offset, length: $length) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            leadText
+            avatar
+            published
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+    }
+  }
+}

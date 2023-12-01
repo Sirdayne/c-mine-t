@@ -1,0 +1,15 @@
+query TickersGraphsQuery($short: String, $widgetType: String, $fiatCurrencies: [String]) {
+  locale(short: $short) {
+    tickerMeta {
+      coinSymbols {
+        name
+        graphs(widgetType: $widgetType, fiatCurrencies: $fiatCurrencies) {
+          cacheKey
+          id
+          fiatCurrencyCode
+          graph
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+query AuthorPageQuery($short: String, $slug: String!, $length: Int) {
+  locale(short: $short) {
+    author(slug: $slug) {
+      cacheKey
+      id
+      slug
+      avatar
+      gender
+      innovationCircleUrl
+      email
+      twitter
+      facebook
+      googlePlus
+      linkedin
+      createdAt
+      alternates {
+        cacheKey
+        id
+        short
+        domain
+        code
+      }
+      authorTranslates {
+        cacheKey
+        id
+        name
+        description
+        seoTitle
+        seoDescription
+      }
+      posts(order: "postPublishedTime", offset: 0, length: $length) {
+        data {
+          cacheKey
+          id
+          slug
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+            slug
+            categoryTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+        }
+        postsCount
+      }
+    }
+  }
+}

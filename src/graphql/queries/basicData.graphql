@@ -1,0 +1,9 @@
+query BasicDataQuery($short: String, $slugs: [String]!) {
+  locale(short: $short) {
+    translates(slugs: $slugs) {
+      cacheKey
+      key
+      value
+    }
+  }
+}

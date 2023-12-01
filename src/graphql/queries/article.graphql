@@ -1,0 +1,162 @@
+query ArticleQuery($short: String, $slug: String!, $relatedLength: Int) {
+  locale(short: $short) {
+    post(slug: $slug) {
+      cacheKey
+      id
+      deletedAt
+      slug
+      views
+      pixelUrl
+      postOptions {
+        cacheKey
+        hideDisclaimer
+        isPromo
+      }
+      alternates {
+        cacheKey
+        id
+        short
+        domain
+        code
+      }
+      postTranslate {
+        cacheKey
+        id
+        title
+        leadText
+        twitterLeadText
+        facebookLeadText
+        bodyText
+        description
+        socialDescription
+        avatar
+        author {
+          id
+          slug
+          avatar
+          gender
+          innovationCircleUrl
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+        youtube
+        audio
+        editorsPriority
+        published
+        publishedHumanFormat
+        facebookShares
+        twitterShares
+        redditShares
+        totalShares
+        noIndex
+      }
+      author {
+        cacheKey
+        id
+        slug
+        avatar
+        gender
+        innovationCircleUrl
+        authorTranslates {
+          cacheKey
+          id
+          name
+        }
+      }
+      postBadge {
+        cacheKey
+        id
+        label
+        postBadgeTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+      category {
+        cacheKey
+        id
+        slug
+        categoryTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+      tags {
+        cacheKey
+        id
+        slug
+        tagTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+      topics {
+        selection
+        post {
+          cacheKey
+          id
+          views
+          slug
+          category {
+            cacheKey
+            id
+          }
+          postTranslate {
+            cacheKey
+            id
+            title
+            leadText
+            published
+            avatar
+            author {
+              id
+              slug
+              avatar
+              gender
+              innovationCircleUrl
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+      relatedPosts(length: $relatedLength) {
+        cacheKey
+        id
+        slug
+        category {
+          cacheKey
+          id
+        }
+        postTranslate {
+          cacheKey
+          avatar
+          title
+          author {
+            id
+            slug
+            avatar
+            gender
+            innovationCircleUrl
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+        }
+      }
+      showShares
+      showStats
+    }
+  }
+}

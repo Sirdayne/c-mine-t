@@ -1,0 +1,24 @@
+query PaginatedGuides(
+  $short: String
+  $guideCategorySlug: String
+  $offset: Int
+  $length: Int
+  $sorting: SortEnum
+  $query: String
+) {
+  locale(short: $short) {
+    guides(guideCategorySlug: $guideCategorySlug, offset: $offset, length: $length, sorting: $sorting, query: $query) {
+      hasMoreGuides
+      guidesCount
+      data {
+        id
+        slug
+        coverImg
+        coverImgCaption
+        translate {
+          title
+        }
+      }
+    }
+  }
+}

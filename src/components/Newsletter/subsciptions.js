@@ -1,0 +1,73 @@
+export const newsletterSubscriptions = [
+  {
+    title: 'newsletterPageMarketsOutlookTitle',
+    subheading: 'newsletterPageMarketsOutlookSubheading',
+    description: 'newsletterPageMarketsOutlookDescription',
+    value: 'markets_outlook',
+    pictogramSrc: '/assets/img/newsletter/markets_outlook.png',
+  },
+
+  {
+    title: 'newsletterPageAltcoinRoundupTitle',
+    subheading: 'newsletterPageAltcoinRoundupSubheading',
+    description: 'newsletterPageAltcoinRoundupDescription',
+    value: 'altcoin_roundup',
+    pictogramSrc: '/assets/img/newsletter/altcoin_roundup.png',
+  },
+  {
+    title: 'newsletterPageDeFiNewsletterTitle',
+    subheading: 'newsletterPageDeFiNewsletterSubheading',
+    description: 'newsletterPageDeFiNewsletterDescription',
+    value: 'defi_newsletter',
+    pictogramSrc: '/assets/img/newsletter/defi.png',
+  },
+  {
+    title: 'newsletterPageMagazineNewsletterTitle',
+    subheading: 'newsletterPageMagazineNewsletterSubheading',
+    description: 'newsletterPageMagazineNewsletterDescription',
+    value: 'magazine',
+    pictogramSrc: '/assets/img/newsletter/magazine.png',
+  },
+  {
+    title: 'newsletterPageLawDecodedTitle',
+    subheading: 'newsletterPageLawDecodedSubheading',
+    description: 'newsletterPageLawDecodedDescription',
+    value: 'law_decoded',
+    pictogramSrc: '/assets/img/newsletter/law.png',
+  },
+  {
+    title: 'newsletterPageNiftyNewsletterTitle',
+    subheading: 'newsletterPageNiftyNewsletterSubheading',
+    description: 'newsletterPageNiftyNewsletterDescription',
+    value: 'nifty_newsletter',
+    pictogramSrc: '/assets/img/newsletter/nifty.png',
+  },
+  {
+    title: 'newsletterPageOneMinuteLetterTitle',
+    subheading: 'newsletterPageOneMinuteLetterSubheading',
+    description: 'newsletterPageOneMinuteLetterDescription',
+    value: 'one_minute_letter',
+    pictogramSrc: '/assets/img/newsletter/oneminute.png',
+  },
+  {
+    title: 'newsletterPageConsultingNewsletterTitle',
+    subheading: 'newsletterPageConsultingNewsletterSubheading',
+    description: 'newsletterPageConsultingNewsletterDescription',
+    value: 'consulting_newsletter',
+    pictogramSrc: '/assets/img/newsletter/biweekly.png',
+  },
+  {
+    title: 'newsletterPageCryptoBizNewsletterTitle',
+    subheading: 'newsletterPageCryptoBizNewsletterSubheading',
+    description: 'newsletterPageCryptoBizNewsletterDescription',
+    value: 'crypto_biz',
+    pictogramSrc: '/assets/img/newsletter/cryptobiz.png',
+  },
+  {
+    title: 'newsletterPageWeekInReviewTitle',
+    subheading: 'newsletterPageWeekInReviewSubheading',
+    description: 'newsletterPageWeekInReviewDescription',
+    value: 'week_in_review',
+    pictogramSrc: '/assets/img/newsletter/weekly.png',
+  },
+];

@@ -1,0 +1,34 @@
+export interface Coin {
+  url: string;
+  name: string;
+  valueAltDesktop: string;
+  isUp: boolean;
+  isDown: boolean;
+  changePercentage: string;
+  id: string;
+  label: string;
+  logo: string;
+  value: string;
+  valueAltGlobal: string;
+  valueAltMobile: string;
+  changeForWeek: number;
+  changeForWeekFormatted: string;
+  changeForMonth: number;
+  changeForMonthFormatted: string;
+  isVisibleOnDesktop: true;
+  isVisibleOnMobile: true;
+  mktcap: number;
+  mktcapFormatted: string;
+  open: number;
+  openFormatted: string;
+  high: number;
+  highFormatted: string;
+  low: number;
+  lowFormatted: string;
+  volume24hour: number;
+  volume24hourFormatted: string;
+  coinTradeVol: number;
+  coinTradeVolFormatted: string;
+  supply: number;
+  supplyFormatted: string;
+}

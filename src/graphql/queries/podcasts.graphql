@@ -1,0 +1,26 @@
+query PodcastsQuery($short: String) {
+  locale(short: $short) {
+    podcasts {
+      tag {
+        slug
+      }
+      title
+      tag {
+        slug
+      }
+      slug
+      description
+      buzzsproutPodcast {
+        ...buzzsproutPodcastFields
+      }
+      authorsWithDesc {
+        ...authorWithDescFields
+      }
+      disclaimerPrefix
+      apple
+      google
+      tunein
+      spotify
+    }
+  }
+}

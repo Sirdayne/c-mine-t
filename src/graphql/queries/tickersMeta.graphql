@@ -1,0 +1,38 @@
+query TickersMetaQuery($short: String) {
+  locale(short: $short) {
+    tickerMeta {
+      defaultCurrency
+      currencySymbols {
+        name
+        sign
+      }
+      coinSymbols {
+        decimals {
+          value
+          currency
+        }
+        decimalsHeaderMobile {
+          value
+          currency
+        }
+        decimalsHeaderDesktop {
+          value
+          currency
+        }
+        tag {
+          slug
+        }
+        cacheKey
+        id
+        name
+        label
+        slug
+        logo
+        priority
+        guideSlug
+        tickersDesktop
+        tickersMobile
+      }
+    }
+  }
+}

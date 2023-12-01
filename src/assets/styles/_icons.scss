@@ -1,0 +1,9 @@
+@use 'sass:string' as string;
+
+@function escape-color($color) {
+  $escaped: string.quote(#{$color});
+  @if string.index($escaped, '#') {
+    $escaped: '%23' + string.slice($escaped, 2);
+  }
+  @return $escaped;
+}

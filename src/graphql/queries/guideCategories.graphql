@@ -1,0 +1,22 @@
+query AllGuideCategories($short: String) {
+  locale(short: $short) {
+    allGuideCategories {
+      id
+      cacheKey
+      slug
+      description
+      createdAt
+      updatedAt
+      guidesCount
+      translate {
+        id
+        cacheKey
+        title
+        description
+        deletedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}

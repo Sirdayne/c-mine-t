@@ -1,0 +1,51 @@
+query Query($short: String, $slug: String!) {
+  locale(short: $short) {
+    post(slug: $slug) {
+      cacheKey
+      id
+      slug
+      views
+      postTranslate {
+        cacheKey
+        id
+        title
+        leadText
+        avatar
+        editorsPriority
+        published
+        publishedHumanFormat
+        author {
+          cacheKey
+          id
+          slug
+          innovationCircleUrl
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+      }
+      author {
+        cacheKey
+        id
+        slug
+        authorTranslates {
+          cacheKey
+          id
+          name
+        }
+      }
+      postBadge {
+        cacheKey
+        id
+        label
+        postBadgeTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+query SettingsQuery($short: String, $slugs: [String]!) {
+  locale(short: $short) {
+    settings(slugs: $slugs) {
+      cacheKey
+      key
+      value
+    }
+  }
+}

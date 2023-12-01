@@ -1,0 +1,548 @@
+---
+#
+# GLOBAL SETTINGS
+#
+
+stages:
+- lint
+- prebuild
+- build
+- release
+- postbuild
+- pull
+- deploy
+- tests
+- testrail_results_upload
+
+variables:
+  DOCKER_IMAGE: registry.ctgroup.io/cointelegraph/duke
+  STAGE_IMAGE: $DOCKER_IMAGE:stage
+  STAGE_WP_IMAGE: $DOCKER_IMAGE:wp_stage
+  RC_IMAGE: $DOCKER_IMAGE:rc
+  QA_IMAGE: $DOCKER_IMAGE:qa
+  DEV1_IMAGE: $DOCKER_IMAGE:dev1
+  RELEASE_IMAGE: $DOCKER_IMAGE:production
+  ROLLBACK_IMAGE: $DOCKER_IMAGE:previous
+  WITH_NGINX_CACHING_PROXY: 0
+
+#
+# LINT STAGE
+#
+
+lint:
+  stage: lint
+  script:
+  - uname -a
+  - yamllint -v
+  - yamllint -c deploy/.yamllint.yml deploy/ .gitlab-ci.yml
+  tags:
+  - ansible
+
+set new production settings:
+  stage: prebuild
+  script:
+  - ansible-vault decrypt ./vault/production.vault --output .env
+  - sed -i s/__APPDOMAINPLACEHOLDER__/$CI_BUILD_REF_NAME/ .env
+  - sed -i s/__VERSIONPLACEHOLDER__/$CI_BUILD_REF_NAME/ .env
+  - sed -i /RELEASE_VERSION/s/release\-// .env
+  artifacts:
+    paths:
+    - .env
+  only:
+  - /^release\-\d+\.\d+\.\d+.*/
+  tags:
+  - ansible
+
+build new production image:
+  stage: release
+  dependencies:
+  - set new production settings
+  allow_failure: false
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker build --no-cache -t $DOCKER_IMAGE:$CI_COMMIT_TAG .
+  - docker push $DOCKER_IMAGE:$CI_COMMIT_TAG
+  only:
+  - /^release\-\d+\.\d+\.\d+.*/
+  tags:
+  - docker
+
+copy static:
+  dependencies:
+  - build new production image
+  stage: postbuild
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker run --name duke-tmp $DOCKER_IMAGE:$CI_COMMIT_TAG sh
+  - docker cp duke-tmp:/app/static/ ./duke-static/
+  - docker cp duke-tmp:/app/.nuxt/dist/client/ ./nuxt-static/
+  - docker stop duke-tmp
+  - docker rm duke-tmp
+  - aws s3 cp ./duke-static/ s3://cointelegraph-static/ --recursive
+  - aws s3 cp ./nuxt-static/ s3://cointelegraph-static/_nuxt/ --recursive --exclude "*.map"
+  - rm -rf ./duke-static/
+  - rm -rf ./nuxt-static/
+  only:
+  - /^release\-\d+\.\d+\.\d+.*/
+  tags:
+  - shell
+  when: on_success
+
+# PREBUILD STAGE
+
+set stage settings:
+  stage: prebuild
+  script:
+  - ansible-vault decrypt ./vault/stage.vault --output .env
+  - ansible-vault decrypt ./vault/wp-stage.vault --output wp.env
+  artifacts:
+    paths:
+    - .env
+    - wp.env
+  only:
+  - stage
+  - /^feature.*/
+  - wp_stage
+  tags:
+  - ansible
+
+set qa settings:
+  stage: prebuild
+  script:
+  - ansible-vault decrypt ./vault/qa.vault --output .env
+  artifacts:
+    paths:
+    - .env
+  only:
+  - qa
+  tags:
+  - ansible
+
+set dev1 settings:
+  stage: prebuild
+  script:
+  - ansible-vault decrypt ./vault/dev1.vault --output .env
+  artifacts:
+    paths:
+    - .env
+  only:
+  - dev1
+  tags:
+  - ansible
+
+set rc settings:
+  stage: prebuild
+  script:
+  - ansible-vault decrypt ./vault/rc.vault --output .env
+  - sed -i s/__APPDOMAINPLACEHOLDER__/$CI_BUILD_REF_NAME/ .env
+  - sed -i s/__VERSIONPLACEHOLDER__/$CI_BUILD_REF_NAME/ .env
+  - sed -i /RELEASE_VERSION/s/candidate\-// .env
+  artifacts:
+    paths:
+    - .env
+  only:
+  - rc
+  - /^candidate\-\d+\.\d+\.\d+.*/
+  tags:
+  - ansible
+
+#
+# BUILD STAGE
+#
+
+build stage image:
+  dependencies:
+  - set stage settings
+  stage: build
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker build --no-cache --build-arg WITH_NGINX_CACHING_PROXY=$WITH_NGINX_CACHING_PROXY -t $STAGE_IMAGE .
+  - docker push $STAGE_IMAGE
+  - cat .env > .env
+  only:
+  - stage
+  tags:
+  - docker
+
+build feature image:
+  dependencies:
+  - set stage settings
+  stage: build
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker build --no-cache -t $STAGE_IMAGE .
+  - docker push $STAGE_IMAGE
+  - cat .env > .env
+  only:
+  - /^feature.*/
+  tags:
+  - docker
+  when: manual
+
+build wp_stage image:
+  dependencies:
+  - set stage settings
+  stage: build
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - cat wp.env > .env
+  - docker build --no-cache -t $STAGE_WP_IMAGE .
+  - docker push $STAGE_WP_IMAGE
+  only:
+  - wp_stage
+  tags:
+  - docker
+
+build qa image:
+  dependencies:
+  - set qa settings
+  stage: build
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker build --no-cache --build-arg WITH_NGINX_CACHING_PROXY=$WITH_NGINX_CACHING_PROXY -t $QA_IMAGE .
+  - docker push $QA_IMAGE
+  - cat .env > .env
+  only:
+  - qa
+  tags:
+  - docker
+
+build dev1 image:
+  dependencies:
+  - set dev1 settings
+  stage: build
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker build --no-cache --build-arg WITH_NGINX_CACHING_PROXY=$WITH_NGINX_CACHING_PROXY -t $DEV1_IMAGE .
+  - docker push $DEV1_IMAGE
+  - cat .env > .env
+  only:
+  - dev1
+  tags:
+  - docker
+
+build rc image:
+  dependencies:
+  - set rc settings
+  stage: build
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.ctgroup.io
+  - docker build --no-cache -t $RC_IMAGE .
+  - docker push $RC_IMAGE
+  - cat .env > .env
+  only:
+  - rc
+  - /^candidate\-\d+\.\d+\.\d+.*/
+  tags:
+  - docker
+  when: manual
+
+#
+# DEPLOY STAGE
+#
+
+deploy to stage:
+  stage: deploy
+  script:
+  - ansible-playbook -i deploy/inventory/inventory.ini --limit stage deploy/deploy.yml
+  - echo "URL=${CI_ENVIRONMENT_URL}" >> test.env
+  environment:
+    name: stage
+    url: https://stage.cointelegraph.com
+  only:
+  - stage
+  tags:
+  - ansible
+  artifacts:
+    reports:
+      dotenv: test.env
+  when: on_success
+
+deploy to wp-stage:
+  stage: deploy
+  script:
+  - ansible-playbook -i deploy/inventory/inventory.ini --limit wp_stage deploy/deploy.yml
+  environment:
+    name: stage
+    url: https://wp-stage.cointelegraph.com
+  only:
+  - wp_stage
+  tags:
+  - ansible
+  when: on_success
+
+deploy feature to stage:
+  stage: deploy
+  script:
+  - ansible-playbook -i deploy/inventory/inventory.ini --limit stage deploy/deploy.yml
+  environment:
+    name: stage
+    url: https://stage.cointelegraph.com
+  only:
+  - /^feature.*/
+  tags:
+  - ansible
+  when: manual
+
+deploy to qa:
+  stage: deploy
+  script:
+  - ansible-playbook -i deploy/inventory/inventory.ini --limit qa deploy/deploy.yml
+  - ansible-playbook -i deploy/inventory/inventory.ini --limit qa deploy/deploy.yml
+  - echo "URL=${CI_ENVIRONMENT_URL}" >> test.env
+  environment:
+    name: qa
+    url: https://qa.cointelegraph.com
+  only:
+  - qa
+  artifacts:
+    reports:
+      dotenv: test.env
+  tags:
+  - ansible
+
+deploy to rc:
+  stage: deploy
+  script:
+  - ansible-playbook -i deploy/inventory/inventory.ini --limit rc deploy/deploy.yml
+  - echo "URL=${CI_ENVIRONMENT_URL}" >> test.env
+  environment:
+    name: rc
+    url: https://rc.cointelegraph.com
+  only:
+  - rc
+  - /^candidate\-\d+\.\d+\.\d+.*/
+  tags:
+  - ansible
+  artifacts:
+    reports:
+      dotenv: test.env
+  when: manual
+
+#
+# TESTS
+#
+
+tests (chromium):
+  stage: tests
+  image: mcr.microsoft.com/playwright:v1.39.0-jammy
+  before_script:
+  - echo $URL
+  - cd 'tests/e2e'
+  script:
+  - npm ci
+  - npx playwright test --project="chromium"
+  artifacts:
+    when: always
+    name: Test report
+    paths:
+    - tests/e2e/playwright-report
+    - tests/e2e/test-results
+    - tests/e2e/results.xml
+    expire_in: 1 week
+    reports:
+      junit: tests/e2e/test-results/results.xml
+  when: manual
+  allow_failure: true
+  tags:
+  - docker
+
+#
+# TESTS 2
+#
+
+tests (Mobile Chrome):
+  stage: tests
+  image: mcr.microsoft.com/playwright:v1.39.0-jammy
+  before_script:
+  - echo $URL
+  - cd 'tests/e2e'
+  script:
+  - npm ci
+  - npx playwright test --project="Mobile Chrome"
+  artifacts:
+    when: always
+    name: Test report
+    paths:
+    - tests/e2e/playwright-report
+    - tests/e2e/test-results
+    - tests/e2e/results.xml
+    expire_in: 1 week
+    reports:
+      junit: tests/e2e/test-results/results.xml
+  when: manual
+  allow_failure: true
+  tags:
+  - docker
+
+#
+# TESTS 3
+#
+
+smoke tests (chromium):
+  stage: tests
+  image: mcr.microsoft.com/playwright:v1.39.0-jammy
+  before_script:
+  - echo $URL
+  - cd 'tests/e2e'
+  script:
+  - npm ci
+  - npx playwright test --grep 'smoke' --project="Chromium"
+  artifacts:
+    when: always
+    name: Test report
+    paths:
+    - tests/e2e/playwright-report
+    - tests/e2e/test-results
+    - tests/e2e/results.xml
+    expire_in: 1 week
+    reports:
+      junit: tests/e2e/test-results/results.xml
+  when: manual
+  allow_failure: true
+  tags:
+  - docker
+
+#
+# TESTS 4
+#
+
+smoke tests (Mobile Chrome):
+  stage: tests
+  image: mcr.microsoft.com/playwright:v1.39.0-jammy
+  before_script:
+  - echo $URL
+  - cd 'tests/e2e'
+  script:
+  - npm ci
+  - npx playwright test --grep 'smoke' --project="Mobile Chrome"
+  artifacts:
+    when: always
+    name: Test report
+    paths:
+    - tests/e2e/playwright-report
+    - tests/e2e/test-results
+    - tests/e2e/results.xml
+    expire_in: 1 week
+    reports:
+      junit: tests/e2e/test-results/results.xml
+  when: manual
+  allow_failure: true
+  tags:
+  - docker
+
+#
+# TESTRAIL
+#
+
+testrail results upload (chromium):
+  stage: testrail_results_upload
+  image: python:latest
+  dependencies:
+  - tests (chromium)
+  needs:
+  - tests (chromium)
+  script:
+  - pip install --upgrade pip
+  - pip install trcli
+  - |
+      trcli -y \
+      -h https://cointelegraph.testrail.io/ \
+      --project "Herzog" \
+      -u test@test.xx \
+      -p r1yb8x \
+      parse_junit \
+      --title "Automated Tests for $CI_COMMIT_REF_NAME (chromium)" \
+      --file "tests/e2e/test-results/results.xml" \
+      --allow-ms \
+      --suite-id "330" \
+      --run-description "URL: $URL"
+  tags:
+  - docker
+
+#
+# TESTRAIL 2
+#
+
+testrail results upload (Mobile Chrome):
+  stage: testrail_results_upload
+  image: python:latest
+  dependencies:
+  - tests (Mobile Chrome)
+  needs:
+  - tests (Mobile Chrome)
+  script:
+  - pip install --upgrade pip
+  - pip install trcli
+  - |
+      trcli -y \
+      -h https://cointelegraph.testrail.io/ \
+      --project "Herzog" \
+      -u test@test.xx \
+      -p r1yb8x \
+      parse_junit \
+      --title "Automated Tests for $CI_COMMIT_REF_NAME (Mobile Chrome)" \
+      --file "tests/e2e/test-results/results.xml" \
+      --allow-ms \
+      --suite-id "330" \
+      --run-description "URL: $URL"
+  tags:
+  - docker
+
+#
+# TESTRAIL 3
+#
+
+testrail results upload (Smoke chromium):
+  stage: testrail_results_upload
+  image: python:latest
+  dependencies:
+  - smoke tests (chromium)
+  needs:
+  - smoke tests (chromium)
+  script:
+  - pip install --upgrade pip
+  - pip install trcli
+  - |
+      trcli -y \
+      -h https://cointelegraph.testrail.io/ \
+      --project "Herzog" \
+      -u test@test.xx \
+      -p r1yb8x \
+      parse_junit \
+      --title "Automated Tests for $CI_COMMIT_REF_NAME (Smoke chromium)" \
+      --file "tests/e2e/test-results/results.xml" \
+      --allow-ms \
+      --suite-id "331" \
+      --run-description "URL: $URL"
+  tags:
+  - docker
+
+#
+# TESTRAIL 4
+#
+
+testrail results upload (Smoke Mobile Chrome):
+  stage: testrail_results_upload
+  image: python:latest
+  dependencies:
+  - smoke tests (Mobile Chrome)
+  needs:
+  - smoke tests (Mobile Chrome)
+  script:
+  - pip install --upgrade pip
+  - pip install trcli
+  - |
+      trcli -y \
+      -h https://cointelegraph.testrail.io/ \
+      --project "Herzog" \
+      -u test@test.xx \
+      -p r1yb8x \
+      parse_junit \
+      --title "Automated Tests for $CI_COMMIT_REF_NAME (Smoke Mobile Chrome)" \
+      --file "tests/e2e/test-results/results.xml" \
+      --allow-ms \
+      --suite-id "331" \
+      --run-description "URL: $URL"
+  tags:
+  - docker

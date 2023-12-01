@@ -1,0 +1,34 @@
+query articleStory($short: String!, $slug: String!) {
+  locale(short: $short) {
+    post(slug: $slug) {
+      cacheKey
+      postBadge {
+        id
+        label
+        postBadgeTranslates {
+          title
+        }
+      }
+      pixelUrl
+      postTranslate {
+        cacheKey
+        title
+        leadText
+        bodyText
+        avatar
+        publishedHumanFormat
+      }
+      category {
+        id
+        slug
+      }
+      tags {
+        id
+        slug
+        tagTranslates {
+          title
+        }
+      }
+    }
+  }
+}

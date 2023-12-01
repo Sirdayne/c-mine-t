@@ -1,0 +1,154 @@
+---
+
+- name: Ensure there is no configs on host
+  file:
+    path: "{{ conf_path_enabled }}"
+    state: absent
+
+- name: Start the app container (staging)
+  docker_container:
+    name: duke_{{ tag }}
+    image: "{{ image }}"
+    pull: true
+    recreate: true
+    restart_policy: always
+    networks:
+    - name: "main_{{ network_tag }}"
+    ports:
+    - "127.0.0.1:{{ duke_port }}:3000"
+    etc_hosts: >
+      {
+      "{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "ar.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "br.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "de.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "es.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "it.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "jp.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "kr.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "rs.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "tr.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}",
+      "ticker.{{ tag }}.cointelegraph.com" : "{{ ansible_host }}"
+      }
+    labels:
+      service: "duke"
+      tier: "frontend"
+    log_driver: gelf
+    log_options:
+      gelf-address: "udp://graylog.ctgroup.io:12201"
+      tag: "{{ tag }}.duke"
+  when: tag != "production"
+
+- name: Start the app container (prod)
+  docker_container:
+    name: duke_{{ tag }}
+    image: "{{ image }}"
+    pull: true
+    recreate: true
+    restart_policy: always
+    networks:
+    - name: "main_{{ network_tag }}"
+    ports:
+    - "127.0.0.1:{{ duke_port }}:3000"
+    etc_hosts: >
+      {
+      "cointelegraph.com" : "{{ ansible_host }}",
+      "ar.cointelegraph.com" : "{{ ansible_host }}",
+      "br.cointelegraph.com" : "{{ ansible_host }}",
+      "de.cointelegraph.com" : "{{ ansible_host }}",
+      "es.cointelegraph.com" : "{{ ansible_host }}",
+      "it.cointelegraph.com" : "{{ ansible_host }}",
+      "jp.cointelegraph.com" : "{{ ansible_host }}",
+      "kr.cointelegraph.com" : "{{ ansible_host }}",
+      "rs.cointelegraph.com" : "{{ ansible_host }}",
+      "tr.cointelegraph.com" : "{{ ansible_host }}",
+      "cointelegraph.com.br" : "{{ ansible_host }}",
+      "gp.cointelegraph.com" : "{{ ansible_host }}",
+      "ticker.cointelegraph.com" : "{{ ansible_host }}"
+      }
+    labels:
+      service: "duke"
+      tier: "frontend"
+    log_driver: gelf
+    log_options:
+      gelf-address: "udp://graylog.ctgroup.io:12201"
+      tag: "{{ tag }}.duke"
+  when: tag == "production"
+
+- name: Ensure web dir exists on host
+  file:
+    path: "/var/www/{{ tag }}.cointelegraph.com/"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Ensure nuxt dir exists on host
+  file:
+    path: "/var/www/{{ tag }}.cointelegraph.com/public/_nuxt"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Copy static files from container to host
+  shell: |
+    rm -rf /var/www/{{ tag }}.cointelegraph.com/client && \
+    docker cp -a duke_{{ tag }}:/app/.nuxt/dist/client \
+    /var/www/{{ tag }}.cointelegraph.com/.
+  args:
+    executable: /bin/bash
+    warn: no
+
+- name: Move copied files to _nuxt folder
+  shell: |
+    cp -a /var/www/{{ tag }}.cointelegraph.com/client/* \
+    /var/www/{{ tag }}.cointelegraph.com/public/_nuxt
+  args:
+    executable: /bin/bash
+
+- name: Copy more files from container to host
+  shell: |
+    docker cp -a duke_{{ tag }}:/app/static \
+    /var/www/{{ tag }}.cointelegraph.com/public/. \
+    && cp -r /var/www/{{ tag }}.cointelegraph.com/public/static/* \
+    /var/www/{{ tag }}.cointelegraph.com/public/ \
+    && rm -rf /var/www/{{ tag }}.cointelegraph.com/public/static
+  args:
+    executable: /bin/bash
+
+- name: Set required permissions to webroot folder
+  file:
+    path: /var/www/{{ tag }}.cointelegraph.com
+    recurse: "yes"
+    state: directory
+    mode: 0755
+    owner: www-data
+    group: www-data
+
+- name: Check if new container is healthy
+  shell: |
+    docker exec -t duke_{{ tag }} curl -I localhost:3000
+  register: healthcheck
+  until: healthcheck.stdout.find("200 OK") != -1
+  retries: 5
+  delay: 10
+
+- name: Create a symlink to enable config
+  file:
+    src: "{{ conf_path_available }}"
+    dest: "{{ conf_path_enabled }}"
+    state: link
+
+- name: Ensure nginx config is valid
+  shell: nginx -t
+  register: validity
+  ignore_errors: true
+  args:
+    executable: /bin/bash
+
+- name: Reload nginx configuration
+  shell: nginx -s reload
+  when: validity is success
+  args:
+    executable: /bin/bash

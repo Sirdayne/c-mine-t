@@ -1,0 +1,12 @@
+query SeoMetaQuery($short: String, $url: String!) {
+  locale(short: $short) {
+    seoMeta(url: $url) {
+      cacheKey
+      id
+      seoMetaUrl
+      seoMetaTitle
+      seoMetaDescription
+      seoMetaKeywords
+    }
+  }
+}

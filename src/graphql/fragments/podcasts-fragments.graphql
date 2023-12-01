@@ -1,0 +1,32 @@
+fragment buzzsproutPodcastFields on BuzzsproutPodcast {
+  id
+  title
+  artworkUrl
+  backgroundUrl
+  websiteAddress
+  author
+  description
+  contactEmail
+  mainCategory
+  subCategory
+  keywords
+  language
+  timezone
+  explicit
+}
+
+fragment authorWithDescFields on PodcastAuthorDesc {
+  podcast {
+    title
+  }
+  author {
+    id
+    avatar
+    slug
+    gender
+    authorTranslates {
+      name
+    }
+  }
+  description
+}

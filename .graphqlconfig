@@ -1,0 +1,44 @@
+{
+  "schemaPath": "src/graphql/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "stage": {
+        "url": "https://conpletus.stage.cointelegraph.com/v1/",
+        "introspect": true
+      },
+      "qa": {
+        "url": "https://conpletus.qa.cointelegraph.com/v1/"
+      },
+      "rc": {
+        "url": "https://conpletus.rc.cointelegraph.com/v1/"
+      },
+      "master": {
+        "url": "https://conpletus.cointelegraph.com/v1/"
+      }
+    },
+    "codegen": {
+      "generates": {
+        "src/graphql/generated.ts": {
+          "plugins": [
+            "typescript",
+            "typescript-operations",
+            "typed-document-node"
+          ],
+          "config": {
+            "useTypeImports": true,
+            "constEnums": true,
+            "pureMagicComment": true
+          },
+          "documents": [
+            "src/graphql/queries/**/*.graphql",
+            "src/graphql/fragments/**/*.graphql"
+          ]
+        }
+      },
+      "hooks": {
+        "afterOneFileWrite": [
+        ]
+      }
+    }
+  }
+}

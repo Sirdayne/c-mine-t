@@ -1,0 +1,106 @@
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.input {
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.input:focus {
+  outline: none;
+}
+
+.btn {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: inherit;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.btn__wrp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.btn__icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+.btn__cap,
+.btn__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.btn__cap_multi,
+.btn__label_multi {
+  overflow: auto;
+  text-overflow: clip;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.btn__spinner {
+  position: absolute;
+  left: calc(50% - 14px / 2);
+  top: calc(50% - 14px / 2);
+  display: none;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border: 2px solid currentColor;
+  border-left-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: spin 0.5s linear infinite;
+}
+.btn:focus {
+  outline: none;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn_pending {
+  position: relative;
+  cursor: progress;
+}
+.btn_pending .btn__spinner {
+  display: block;
+}
+.btn_pending .btn__icon,
+.btn_pending .btn__cap {
+  opacity: 0;
+}

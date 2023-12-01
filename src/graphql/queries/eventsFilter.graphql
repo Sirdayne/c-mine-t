@@ -1,0 +1,20 @@
+query EventsFilter($short: String) {
+  locale(short: $short) {
+    eventCategories {
+      description
+      id
+      title
+      slug
+    }
+    eventCities {
+      id
+      title
+    }
+    eventMonths
+    eventCountries {
+      title
+      code
+      code2
+    }
+  }
+}

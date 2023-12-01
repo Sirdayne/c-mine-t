@@ -1,0 +1,19 @@
+query MenuQuery($short: String, $menuType: String!) {
+  locale(short: $short) {
+    menu(menuType: $menuType) {
+      cacheKey
+      id
+      parentId
+      url
+      badgeType
+      rel
+      position
+      inNewTab
+      titleTranslates {
+        cacheKey
+        id
+        value
+      }
+    }
+  }
+}

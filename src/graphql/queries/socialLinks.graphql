@@ -1,0 +1,16 @@
+query SocialLinks($short: String) {
+  locale(short: $short) {
+    socialLinks {
+      cacheKey
+      id
+      facebookUrl
+      twitterUrl
+      telegramUrl
+      linkedinUrl
+      googlePlusUrl
+      youtubeUrl
+      twitterAccount
+      telegramAccount
+    }
+  }
+}

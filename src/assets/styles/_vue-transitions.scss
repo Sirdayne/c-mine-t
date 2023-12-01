@@ -1,0 +1,55 @@
+// VUE <Transition> animations only
+
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.15s;
+  }
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+.fade-in-up {
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.15s, transform 0.15s;
+  }
+}
+
+.drop {
+  &-enter-active {
+    animation: drop 0.3s ease;
+  }
+  &-leave-active {
+    animation: drop 0.15s reverse;
+  }
+}
+
+.appear-from-top {
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.15s, transform 0.15s;
+  }
+}
+
+.privacy-policy-appear {
+  &-enter,
+  &-enter-active {
+    animation: privacy-policy-appear 0.6s ease-out both;
+  }
+  &-leave-active {
+    animation: privacy-policy-appear 0.4s ease-out both alternate-reverse;
+  }
+}

@@ -1,0 +1,7 @@
+query QrCodeQuery($short: String, $url: String!) {
+  locale(short: $short) {
+    qrCode(url: $url) {
+      image
+    }
+  }
+}

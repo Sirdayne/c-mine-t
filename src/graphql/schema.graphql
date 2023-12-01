@@ -1,0 +1,1268 @@
+# This file was generated. Do not edit manually.
+
+schema {
+  query: Query
+}
+
+union GuideCategoryOrGuide = Guide | GuideCategory
+
+"Base author"
+type Author {
+  "Alternates"
+  alternates: [Language]
+  "Author translates array."
+  authorTranslates: [AuthorTranslate]
+  "Author avatar."
+  avatar: String
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Created at."
+  createdAt: DateTime!
+  "Author email."
+  email: String
+  "Author Social."
+  facebook: String
+  "Author gender"
+  gender: String
+  "Author Social."
+  googlePlus: String
+  "Author id."
+  id: ID!
+  "Innovation Circle URL."
+  innovationCircleUrl: String
+  "Author Social."
+  linkedin: String
+  posts(
+    "Length."
+    length: Int = 30
+    "Offset posts."
+    offset: Int = 0
+    "Order by."
+    order: String = "postPublishedTime"
+  ): PaginatedPosts
+  "Author slug."
+  slug: String!
+  "Author Social."
+  twitter: String
+  "Updated at."
+  updatedAt: DateTime!
+}
+
+"Base author translate"
+type AuthorTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Author description."
+  description: String
+  id: ID!
+  "Author name."
+  name: String!
+  "Author seo description."
+  seoDescription: String
+  "Author seo title."
+  seoTitle: String
+  "Author show in authors"
+  showInAuthors: Boolean
+}
+
+"Base banner"
+type Banner {
+  "Banner code"
+  bannerCode: String
+  "Banner comment"
+  bannerComment: String
+  "Banner image"
+  bannerImage: String
+  "Banner options"
+  bannerOptions: String
+  "Banner place"
+  bannerPlace: String!
+  "Banner priority"
+  bannerPriority: Int
+  "Banner title"
+  bannerTitle: String
+  "Banner type"
+  bannerType: String!
+  "Banner url"
+  bannerUrl: String
+  "Banner weight"
+  bannerWeight: Int
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "The unique ID of the banner."
+  id: ID!
+  "Banner post"
+  post: Post
+}
+
+"Buzzsprout platform podcast"
+type BuzzsproutPodcast {
+  artworkUrl: String
+  "Author of podcast"
+  author: String
+  backgroundUrl: String
+  contactEmail: String
+  description: String
+  explicit: String
+  "buzzsprout id"
+  id: ID
+  keywords: String
+  language: String
+  lastUpdate: DateTime
+  mainCategory: String
+  mainCategory2: String
+  mainCategory3: String
+  subCategory: String
+  subCategory2: String
+  subCategory3: String
+  timezone: String
+  "Name of podcast"
+  title: String
+  websiteAddress: String
+}
+
+"Base category"
+type Category {
+  "Alternates"
+  alternates: [Language]
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Category translates."
+  categoryTranslates: [CategoryTranslate]
+  "Created at."
+  createdAt: DateTime!
+  "Category has short URL (without /category prefix)"
+  hasShortUrl: Boolean!
+  "Category id."
+  id: ID!
+  posts(
+    "Hide from main page flag. Also hides «light» press releases."
+    hideFromMainPage: Boolean
+    "Length."
+    length: Int = 30
+    "Offset posts."
+    offset: Int = 0
+    "Order by."
+    order: String = "postPublishedTime"
+  ): PaginatedPosts
+  "Category slug."
+  slug: String!
+  "Updated at."
+  updatedAt: DateTime!
+}
+
+"Base category translate"
+type CategoryTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Created at."
+  createdAt: DateTime!
+  "Category description."
+  description: String
+  id: ID!
+  "Category keywords."
+  keywords: String
+  "Category description."
+  metaDescription: String
+  "Category title."
+  metaTitle: String
+  "Category title."
+  title: String!
+  "Updated at."
+  updatedAt: DateTime!
+}
+
+type City {
+  "The unique identifier for the city."
+  id: ID!
+  "The title of the city."
+  title: String!
+}
+
+"Base coin"
+type Coin {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Global decimals"
+  decimals: [Decimals]
+  "Decimals for desktop version"
+  decimalsHeaderDesktop: [Decimals]
+  "Decimals for mobile version"
+  decimalsHeaderMobile: [Decimals]
+  "Get Graphs for coin"
+  graphs(
+    "fiat currency codes for filter"
+    fiatCurrencies: [String]
+    "graph type, must be: `main` or `widget`"
+    widgetType: String
+  ): [Graph]
+  "Coin guide"
+  guideSlug: String!
+  "Coin id."
+  id: ID!
+  "Coin label"
+  label: String
+  "Coin logo"
+  logo: String
+  "Coin logo in PNG format"
+  logoPng: String
+  "Coin logo in PNG format for dark mode"
+  logoPngDark: String
+  "Coin name."
+  name: String!
+  "Coin priority"
+  priority: Int!
+  "Get rates for coin"
+  rates("fiat currency codes for filter" fiatCurrencies: [String]): [CoinRate]
+  "Coin slug."
+  slug: String!
+  tag: Tag
+  "Show coin in desktop header"
+  tickersDesktop: Boolean!
+  "Show coin in desktop header"
+  tickersMobile: Boolean!
+}
+
+"Coin rate"
+type CoinRate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Market cap"
+  cap: Float!
+  "24h change"
+  change24h: Float!
+  "Day change"
+  day: Float!
+  "Emitted value"
+  emitted: Float!
+  "Rate fiat currency code."
+  fiatCurrencyCode: String!
+  "High price"
+  high: Float!
+  "Low price"
+  low: Float!
+  "Monthly change"
+  month: Float!
+  "Open price"
+  open: Float!
+  "Current rate price"
+  price: Float!
+  "Trading volume"
+  volume: Float!
+  "Trading volume in fiat currency"
+  volumeCurrency: Float!
+  "Weekly change"
+  week: Float
+}
+
+type Country {
+  "The third-letter country code (e.g. CAN)."
+  code: String!
+  "The two-letter country code (e.g., PT, BR, US)."
+  code2: String!
+  "The title of the country."
+  title: String!
+}
+
+"Base coin"
+type Currency {
+  "Currency slug."
+  name: String!
+  "Currency sign."
+  sign: String!
+}
+
+type Decimals {
+  currency: String!
+  value: Int!
+}
+
+type Event {
+  "The list of categories associated with the event."
+  categories: [EventCategory!]!
+  "The City object representing the city where the event takes place."
+  city: City
+  "The Country object representing the country where the event takes place."
+  country: Country
+  "The description of the event."
+  description: String
+  "The end date of the event."
+  endDate: DateTime!
+  "The unique identifier for the event."
+  id: ID!
+  "The URL of the event image."
+  imageUrl: String!
+  "Optional promotional code for the event."
+  promocode: String
+  "The start date of the event."
+  startDate: DateTime!
+  "The title of the event."
+  title: String!
+  "The URL of the event."
+  website: String
+}
+
+type EventCategory {
+  "The description of the event category."
+  description: String
+  "The unique identifier for the event category."
+  id: ID!
+  "The slug of category"
+  slug: String!
+  "The title of the event category."
+  title: String!
+}
+
+"Glossary entity"
+type GlossaryItem {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "The unique ID of the guide."
+  id: ID!
+  link: String!
+  title: String!
+}
+
+"Base Coin Graph"
+type Graph {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Graph fiat currency code."
+  fiatCurrencyCode: String!
+  "Graph svg image"
+  graph: String!
+  "Graph type, must be: `main` or `widget`"
+  graphType: String!
+  "Graph id."
+  id: ID!
+}
+
+"Guide entity"
+type Guide {
+  alternates: [Language]
+  "Unique Object cache key by locale."
+  cacheKey: String
+  coverImg: String!
+  coverImgCaption: String!
+  createdAt: DateTime
+  "The unique ID of the guide."
+  id: ID!
+  slug: String!
+  socialImg: String!
+  socialImgCaption: String!
+  translate: GuideTranslate
+  updatedAt: DateTime
+}
+
+"Guide category entity"
+type GuideCategory {
+  alternates: [Language]
+  "Unique Object cache key by locale."
+  cacheKey: String
+  createdAt: DateTime
+  description: String!
+  "Guides loader"
+  guides: [Guide]
+  "Guides count on GuideCategory"
+  guidesCount: Int!
+  "The unique ID of the guide category."
+  id: ID!
+  slug: String!
+  translate: GuideCategoryTranslate
+  updatedAt: DateTime
+}
+
+"Guide category translate entity"
+type GuideCategoryTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String!
+  "The unique ID of the guide category translate."
+  id: ID!
+  title: String!
+  updatedAt: DateTime
+}
+
+"Guide translate entity"
+type GuideTranslate {
+  about: String!
+  "Unique Object cache key by locale."
+  cacheKey: String
+  fullText: String!
+  "The unique ID of the guide translate."
+  id: ID!
+  published: Boolean!
+  "Published time"
+  publishedAt: DateTime
+  seoDescription: String!
+  seoKeywords: String!
+  seoTitle: String!
+  title: String!
+}
+
+"Base author"
+type IcoEvent {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "End time."
+  endDate: DateTime
+  "IcoEvent details."
+  icoEventDetails: [IcoEventDetail]
+  "IcoEvent socials."
+  icoEventSocials: IcoEventSocial
+  "IcoEvent teams."
+  icoEventTeams: [IcoEventTeam]
+  "IcoEvent translates."
+  icoEventTranslates: [IcoEventTranslate]
+  "Ico id."
+  id: ID!
+  "Ico img."
+  img: String!
+  "Slug."
+  slug: String!
+  "Start date."
+  startDate: DateTime
+  "Video url."
+  video: String!
+}
+
+"Base detail"
+type IcoEventDetail {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "IcoEvent translates."
+  icoEventDetailTranslates: [IcoEventDetailTranslate]
+  id: ID!
+}
+
+type IcoEventDetailTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Detail description."
+  description: String!
+  id: ID!
+  "Detail title."
+  title: String!
+}
+
+"Base social"
+type IcoEventSocial {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "IcoEvent translates."
+  icoEventSocialTranslates: [IcoEventSocialTranslate]
+  id: ID!
+}
+
+type IcoEventSocialTranslate {
+  "Social link"
+  bitcointalk: String!
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Social link"
+  facebook: String!
+  "Social link"
+  flickr: String!
+  "Social link"
+  github: String!
+  "Social link"
+  google: String!
+  id: ID!
+  "Social link"
+  instagram: String!
+  "Social link"
+  linkedin: String!
+  "Social link"
+  livejournal: String!
+  "Social link"
+  medium: String!
+  "Social link"
+  reddit: String!
+  "Social link"
+  slackin: String!
+  "Social link"
+  soundcloud: String!
+  "Social link"
+  telegram: String!
+  "Social link"
+  twitter: String!
+  "Social link"
+  vkontakte: String!
+  "Social link"
+  whatsapp: String!
+}
+
+"Base detail"
+type IcoEventTeam {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "IcoEvent socials."
+  icoEventSocialTranslates: IcoEventSocial
+  "IcoEvent translates."
+  icoEventTeamTranslates: [IcoEventTeamTranslate]
+  id: ID!
+  "Team image."
+  img: String!
+}
+
+type IcoEventTeamTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Team description."
+  description: String!
+  id: ID!
+  "Team link."
+  link: String!
+  "Team profession."
+  profession: String!
+  "Team title."
+  title: String!
+}
+
+type IcoEventTranslate {
+  "Anounce."
+  anounce: String!
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Description."
+  description: String!
+  id: ID!
+  "Event title."
+  title: String!
+  "Website."
+  website: String!
+  "Whitepaper."
+  whitepaper: String!
+}
+
+"Base language"
+type Language {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Language code"
+  code: String!
+  "Date format"
+  dateFormat: String!
+  "Language domain"
+  domain: String
+  "Ga code"
+  gaCode: String!
+  "Hide language from menu"
+  hidden: Boolean!
+  "The unique ID of the language."
+  id: ID!
+  "Locale of language"
+  locale: String
+  "Robots.txt file"
+  robots: String!
+  "Short name of language"
+  short: String!
+  "Date format"
+  subscribes: [String]
+  "Region timezone"
+  timezone: String!
+  "Language title"
+  title: String!
+}
+
+type LocalPosts {
+  alternates: [Language]
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Meta Description"
+  description: String
+  "Meta Keywords"
+  keywords: String
+  posts(
+    "Length."
+    length: Int = 30
+    "Offset posts."
+    offset: Int = 0
+    "Order by. Can get values: postViews (order by views), hotStories (get most popular posts from 2 days), postEditorsPriority (get recommended posts), postPublishedTime (get latest posts), postCarousel (carousel on main page)"
+    order: String = "postPublishedTime"
+  ): PaginatedPosts
+  "The unique SHORT of the language."
+  short: String!
+  "Meta Title"
+  title: String
+}
+
+"Base placement"
+type Locale {
+  "All guide categories"
+  allGuideCategories: [GuideCategory!]!
+  author("Author slug." slug: String!): Author
+  "Authors"
+  authors: [Author]
+  banners(
+    "Banner country iso code. (non required)"
+    countryIso: String
+    "Banner place."
+    places: [String]!
+    "Banner type. (non required)"
+    type: String
+  ): [Banner]
+  "Filters events by cityId, countryId, pick events afterDate, or having a non-empty promocode."
+  calendarEvents(
+    "Filter event by category slug."
+    categorySlug: String
+    "Filter events by city ID."
+    cityId: ID
+    "Filter events by country code (3 symbols)."
+    countryCode: String
+    "The number of events to be fetched. Min 0, max 20"
+    length: Int = 20
+    "Filter events by month from date argument."
+    monthDate: DateTime
+    "Offset"
+    offset: Int = 0
+    "Filter events that have a non-empty promocode."
+    onlyWithPromocode: Boolean
+  ): PaginatedEvents!
+  "Events with toggled flag Featured or Pinned."
+  carouselEvents: [Event!]!
+  "Get carousel posts list"
+  carouselPosts: [Post]
+  category("Author slug." slug: String!): Category
+  coin("Coin slug" slug: String!): Coin
+  coins: [Coin]
+  currency("Currency name" name: String!): Currency
+  "Get editors choice posts list"
+  editorsPosts: [Post]
+  "List of categories where future events are available"
+  eventCategories: [EventCategory!]!
+  "List of cities where future events are available."
+  eventCities: [City!]!
+  "List of countries where future events are available."
+  eventCountries: [Country!]!
+  "List of months as DateTimes when future events are available."
+  eventMonths: [DateTime!]!
+  glossary: [GlossaryItem]
+  guide("Find guide by id." id: ID, "Find guide by slug." slug: String): Guide
+  guideCategory("Find guide category by id." id: ID, "Find guide category by slug." slug: String): GuideCategory
+  guideCategoryOrGuide("Guide or GuideCategory slug" slug: String!): GuideCategoryOrGuide
+  "All guides with offset"
+  guides(
+    "Paginated guides by category. Or from all categories when no slug."
+    guideCategorySlug: String
+    "Guides amount in response"
+    length: Int = 30
+    "Offset"
+    offset: Int = 0
+    "Search query."
+    query: String
+    "Sorting enum ASC, DESC"
+    sorting: SortEnum = desc
+  ): PaginatedGuides!
+  "Get hot posts list"
+  hotPosts("Exclude promo posts flag" promo: Boolean): [Post]
+  icoEvent("IcoEvent slug." slug: String!): IcoEvent
+  icoEventsOngoing("Length." length: Int = 30, "Page." page: Int = 1): PaginatedIcoEvents
+  icoEventsPast("Length." length: Int = 30, "Page." page: Int = 1): PaginatedIcoEvents
+  icoEventsUpcoming("Length." length: Int = 30, "Page." page: Int = 1): PaginatedIcoEvents
+  language: Language
+  languages: [Language]
+  latestAuthors("Length." length: Int = 30, "Page." page: Int = 1): PaginatedAuthors
+  latestTags("Length." length: Int = 30, "Page." page: Int = 1): PaginatedTags
+  "Authors language_id"
+  localAuthors: [Author]
+  "Local News"
+  localPosts: LocalPosts
+  "Team all by lang"
+  localTeam: [Team]
+  menu("Must be: header, headerMobile, right, footer, amp, error." menuType: String! = "main"): [Menu]
+  podcast("Dashboard podcast slug" slug: String): Podcast
+  "Get all dashboard podcasts"
+  podcasts: [Podcast]
+  post("Find post by id." id: ID, "Find post by slug." slug: String): Post
+  posts(
+    "filter posts that are created before given date"
+    beforePostId: ID
+    "Pick posts from given category"
+    categorySlug: String
+    "Length."
+    length: Int = 30
+    "Offset posts."
+    offset: Int = 0
+    "Order by. Can get values: postViews (order by views), hotStories (get most popular posts from 2 days), postEditorsPriority (get recommended posts), postPublishedTime (get latest posts), postCarousel (carousel on main page)"
+    order: String = "postPublishedTime"
+    "Source page type for posts filtering"
+    place: String = ""
+    "nullable filter for promo posts via new_posts_options"
+    promo: Boolean
+  ): PaginatedPosts
+  "Search for posts"
+  postsSearch("Length." length: Int = 30, "Offset." offset: Int = 0, "Search query" query: String = ""): PaginatedPosts
+  qrCode("URL for QR coding." url: String!): QrCode
+  "Post related"
+  relatedPosts(
+    "Exclude post ids (not required)"
+    excludeIds: [ID]
+    "Limit result length"
+    length: Int = 6
+    "Post id"
+    postId: ID!
+  ): [Post]
+  seoMeta("SeoMeta url." url: String!): SeoMeta
+  settings("Settings slugs." slugs: [String]!): [Setting]
+  socialLinks: SocialLinks
+  "Dashboard static page as-is without any transformations"
+  staticPage(slug: String!): StaticPage
+  tag("Tag slug." slug: String!): Tag
+  "Team all - en only"
+  team: [Team]
+  tickerMeta: TickerMeta
+  topPeople("Listing year" year: Int!): [TopPeople]
+  topPeopleItem("Slug" slug: String!, "Listing year" year: Int!): TopPeople
+  translates("Translation slugs." slugs: [String]!): [Translate]
+  universalBlocks("Universal block type (may be nrm_uni_block, top_uni_block)" type: String): [UniversalBlock]
+}
+
+"Base menu"
+type Menu {
+  "Alt translates"
+  altTranslates: [Translate]
+  "Badge title"
+  badgeType: Int
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "The unique ID of the menu."
+  id: ID!
+  "Open new window? Or no"
+  inNewTab: Boolean!
+  "Parent menu id"
+  parentId: ID
+  "Menu position depth"
+  position: Int!
+  "Rel for menu display"
+  rel: String
+  "Root type"
+  rootType: Int
+  "Title translates"
+  titleTranslates: [Translate]!
+  "Url"
+  url: String!
+}
+
+type PaginatedAuthors {
+  "Latest authors"
+  data: [Author]
+  "Max page"
+  pages: Int
+}
+
+type PaginatedEvents {
+  data: [Event!]!
+  "Has more events"
+  hasMore: Boolean!
+}
+
+type PaginatedGuides {
+  "All guides with offset"
+  data: [Guide!]!
+  "Guides count"
+  guidesCount: Int!
+  "Has more posts"
+  hasMoreGuides: Boolean!
+}
+
+type PaginatedIcoEvents {
+  "Latest ico"
+  data: [IcoEvent]
+  "Max page"
+  pages: Int
+}
+
+type PaginatedPosts {
+  "Latest posts"
+  data: [Post]
+  "Has more posts"
+  hasMorePosts: Boolean!
+  "Max posts"
+  postsCount: Int @deprecated(reason: "Will be replaced by hasMorePosts")
+}
+
+type PaginatedTags {
+  "Latest tags"
+  data: [Tag]
+  "Max page"
+  pages: Int
+}
+
+"Dashboard podcast"
+type Podcast {
+  "Platform link"
+  amazonMusic: String
+  "Platform link"
+  apple: String
+  "Platform link"
+  audible: String
+  "Podcast authors with podcaster bio"
+  authorsWithDesc: [PodcastAuthorDesc]
+  "Podcast audio files and player relation"
+  buzzsproutPodcast: BuzzsproutPodcast
+  "Platform link"
+  castbox: String
+  "Platform link"
+  castro: String
+  "Platform link"
+  deezer: String
+  description: String
+  "Small text disclaimer at the bottom of page"
+  disclaimerPrefix: String
+  "Platform link"
+  goodpods: String
+  "Platform link"
+  google: String
+  "The unique ID of the podcast."
+  id: ID
+  "Platform link"
+  iheartradio: String
+  "Platform link"
+  listenNotes: String
+  "Platform link"
+  overcast: String
+  "Platform link"
+  playerfm: String
+  "Platform link"
+  pocketCasts: String
+  "Platform link"
+  podcastAddict: String
+  "Platform link"
+  podcastIndex: String
+  "Platform link"
+  podchaser: String
+  "Platform link"
+  podfriend: String
+  "website url part"
+  slug: String
+  "Platform link"
+  spotify: String
+  "Podcast post tag"
+  tag: Tag
+  "Name of concrete podcast"
+  title: String
+  "Platform link"
+  tunein: String
+}
+
+"Dashboard podcast author custom bio"
+type PodcastAuthorDesc {
+  "Author info"
+  author: Author
+  "Podcasters bio"
+  description: String
+  "The unique ID of the podcast."
+  id: ID
+  "Buzzsprout podcast"
+  podcast: Podcast
+}
+
+"Base post"
+type Post {
+  alternates: [Language]
+  "Author info"
+  author: Author
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Category info"
+  category: Category
+  "Delete time"
+  deletedAt: DateTime
+  "The unique ID of the post."
+  id: ID!
+  "Pixel Url"
+  pixelUrl: String!
+  "Badge info"
+  postBadge: PostBadge
+  "Post more options"
+  postOptions: PostOptions
+  "Post translate"
+  postTranslate: PostTranslate
+  "Post related"
+  relatedPosts("Exclude post ids (not required)" excludeIds: [ID], "Limit result length" length: Int = 6): [Post]
+  showShares: Boolean!
+  showStats: Boolean!
+  "Slug"
+  slug: String!
+  "Tags"
+  tags: [Tag]
+  "Post more topics"
+  topics: [Topic]
+  "Relative url"
+  url: String!
+  "Views"
+  views: Int
+}
+
+"Base post badge"
+type PostBadge {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "PostBadge id."
+  id: ID!
+  "PostBadge label."
+  label: String!
+  "Category translates."
+  postBadgeTranslates: [PostBadgeTranslate]
+}
+
+"Base post badge"
+type PostBadgeTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  id: ID!
+  "PostBadgeTranslate title."
+  title: String!
+}
+
+"Post options"
+type PostOptions {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Hide disclaimer from post page"
+  hideDisclaimer: Boolean!
+  "The unique ID of the post."
+  id: ID!
+  "Promo post"
+  isPromo: Boolean!
+}
+
+"Base post"
+type PostTranslate {
+  "Post audio"
+  audio: String
+  "Author info"
+  author: Author
+  "Post avatar"
+  avatar: String
+  "Post Body"
+  bodyText: String
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Description"
+  description: String
+  "Priority for editors choice"
+  editorsPriority: Int
+  "Lead text"
+  facebookLeadText: String
+  "Facebook Shares"
+  facebookShares: Int!
+  id: ID!
+  "Lead text"
+  leadText: String
+  "Linkedin Shares (deprecated, to be removed in future)"
+  linkedinShares: Int!
+  "Meta noindex"
+  noIndex: Boolean!
+  "Published time"
+  published: DateTime!
+  "Published time human-format"
+  publishedHumanFormat: String
+  "Reddit Shares"
+  redditShares: Int!
+  "Other shares"
+  shares: Int!
+  "Social Description"
+  socialDescription: String
+  "Title"
+  title: String!
+  "Total Shares"
+  totalShares: Int!
+  "Lead text"
+  twitterLeadText: String
+  "Twitter Shares"
+  twitterShares: Int!
+  "Post youtube"
+  youtube: String
+}
+
+"QR code"
+type QrCode {
+  "Base64 QR code image"
+  image: String
+}
+
+"Base placement"
+type Query {
+  locale("Language short code" short: String = "en"): Locale
+}
+
+"Base seo meta data"
+type SeoMeta {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "The unique ID of the seo meta."
+  id: ID!
+  "Title"
+  seoMetaDescription: String
+  "Title"
+  seoMetaKeywords: String
+  "Title"
+  seoMetaTitle: String
+  "Url"
+  seoMetaUrl: String
+}
+
+"Base setting"
+type Setting {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "The unique ID of the Settings."
+  id: ID!
+  "Setting key."
+  key: String
+  "Setting value"
+  value: String
+}
+
+"Base social links"
+type SocialLinks {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  facebookUrl: String!
+  googlePlusUrl: String!
+  "The unique ID of the language."
+  id: ID!
+  linkedinUrl: String!
+  telegramAccount: String!
+  telegramUrl: String!
+  twitterAccount: String!
+  twitterUrl: String!
+  youtubeUrl: String!
+}
+
+"Static page"
+type StaticPage {
+  about: String
+  "HTML content of the page"
+  content: String!
+  coverImg: String
+  coverImgCaption: String
+  createdAt: DateTime!
+  id: ID!
+  seoDescription: String
+  seoKeywords: String
+  seoTitle: String
+  socialImg: String
+  socialImgCaption: String
+  title: String!
+  type: Int
+  updatedAt: DateTime!
+}
+
+"Base tag"
+type Tag {
+  "Alternates"
+  alternates: [Language]
+  "Tag avatar."
+  avatar: String
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Coin related to tag."
+  coin: Coin
+  "Created at."
+  createdAt: DateTime!
+  "Tag id."
+  id: ID!
+  posts(
+    "Length."
+    length: Int = 30
+    "Offset posts."
+    offset: Int = 0
+    "Order by."
+    order: String = "postPublishedTime"
+  ): PaginatedPosts
+  "Tag redirect relative url."
+  redirectRelativeUrl: String
+  "Tag slug."
+  slug: String
+  "Tag translations array"
+  tagTranslates: [TagTranslate]
+  "Updated at."
+  updatedAt: DateTime!
+}
+
+"Base tag translate"
+type TagTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Created at."
+  createdAt: DateTime!
+  "Tag description."
+  description: String
+  id: ID!
+  "Tag keywords."
+  keywords: String
+  "Tag description."
+  metaDescription: String
+  "Tag title."
+  metaTitle: String
+  "Tag title."
+  pageTitle: String
+  "Tag title."
+  title: String!
+  "Updated at."
+  updatedAt: DateTime!
+}
+
+"Team member data"
+type Team {
+  "Created at."
+  createdAt: DateTime!
+  "User info"
+  description: String!
+  "email"
+  email: String!
+  "Facebook acc"
+  facebook: String!
+  "Gender enum"
+  gender: String!
+  "Google acc"
+  google_plus: String!
+  "Tag id."
+  id: ID!
+  "Role"
+  job_title: String!
+  "Linked in acc"
+  linkedin: String!
+  "Operator"
+  operator_id: ID!
+  "User photo"
+  photo: String!
+  "Position number"
+  position_num: Int!
+  "Show in authors block"
+  showInAuthorsPosition: Boolean
+  "Skype acc"
+  skype: String
+  "Username"
+  title: String!
+  "Twitter acc"
+  twitter: String!
+  "Updated at."
+  updatedAt: DateTime!
+  "url"
+  url: String!
+}
+
+"Base coin"
+type TickerMeta {
+  allowedMarkets: [String]!
+  coinSymbols: [Coin]!
+  currencySymbols: [Currency]!
+  defaultCurrency: String!
+}
+
+"Top people entity"
+type TopPeople {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  id: ID!
+  "Slug"
+  slug: String
+  "Sort order"
+  sortOrder: Int
+  translate: TopPeopleTranslate
+  "Year"
+  year: Int!
+}
+
+"Top people translate entity"
+type TopPeopleTranslate {
+  active: Boolean!
+  almaMater: String
+  article1: Post
+  article1_id: ID
+  article2: Post
+  article2_id: ID
+  article3: Post
+  article3_id: ID
+  background: String
+  birthDate: DateTime
+  born: String
+  "Unique Object cache key by locale."
+  cacheKey: String
+  content: String
+  disclaimer: String
+  facebookUrl: String
+  id: ID!
+  image: String
+  imageShare: String
+  known: String
+  linkedinUrl: String
+  name: String
+  newsTag: String
+  position: String
+  quoteLink: String
+  quoteLinkWord: String
+  quoteSource: String
+  quoteText: String
+  residence: String
+  speciality: String
+  twitterUrl: String
+  "Votes counter"
+  votes: Int
+  webPageUrl: String
+}
+
+"Base post topic"
+type Topic {
+  "topic Post"
+  post: Post!
+  "topic priority"
+  priority: Int!
+  "Selection topic"
+  selection: Boolean!
+}
+
+"Base translate"
+type Translate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Translate id."
+  id: ID
+  "Translate key."
+  key: String
+  "Translate value"
+  value: String
+}
+
+"Base universal block"
+type UniversalBlock {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Universal block id."
+  id: ID!
+  "Universal block order type (may be published, popular)."
+  orderType: String
+  posts: PaginatedPosts
+  "Universal block posts limit."
+  postsLimit: Int!
+  "Universal block type (may be nrm_uni_block, top_uni_block)."
+  type: String
+  "Universal block translations array"
+  universalBlockTranslates: [UniversalBlockTranslate]
+}
+
+"Base universal block"
+type UniversalBlockTranslate {
+  "Unique Object cache key by locale."
+  cacheKey: String
+  "Universal block id."
+  id: ID!
+  "Universal block title."
+  title: String!
+}
+
+"Simple sorting enum"
+enum SortEnum {
+  "Sorts from old to new"
+  asc
+  "Sorts from new to old"
+  desc
+}
+
+scalar DateTime

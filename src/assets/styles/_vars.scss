@@ -1,0 +1,67 @@
+$grid-columns: 16;
+$scrollbar-width: 0;
+$gutter: 20px;
+
+$xxs: 400px;
+$xs: 480px;
+$xs--tablet: 550px;
+$sm: 768px;
+$md: 992px;
+$lg: 1232px;
+$xl: 1440px;
+
+$container-sm: $sm - 2 * $gutter;
+$container-md: $md - 2 * $gutter - $scrollbar-width;
+$container-lg: $lg - 2 * $gutter - $scrollbar-width;
+
+$col-1: 100% / $grid-columns;
+$col-2: 100% / $grid-columns * 2;
+$col-3: 100% / $grid-columns * 3;
+$col-4: 100% / $grid-columns * 4;
+$col-5: 100% / $grid-columns * 5;
+$col-6: 100% / $grid-columns * 6;
+$col-7: 100% / $grid-columns * 7;
+$col-8: 100% / $grid-columns * 8;
+$col-9: 100% / $grid-columns * 9;
+$col-10: 100% / $grid-columns * 10;
+$col-11: 100% / $grid-columns * 11;
+$col-12: 100% / $grid-columns * 12;
+$col-13: 100% / $grid-columns * 13;
+$col-14: 100% / $grid-columns * 14;
+$col-15: 100% / $grid-columns * 15;
+$col-16: 100%;
+
+$color-white: #ffffff;
+$color-black: #000000;
+$color-black-950: #171a1c;
+$color-gray-950: #1f282d;
+$color-gray-900: #1c1c1c;
+$color-gray-800: #292929;
+$color-gray-700: #4e5d65;
+$color-gray-600: #919191;
+$color-gray-500: #8e8c8d;
+$color-gray-400: #c8d0d3;
+$color-gray-300: #e4e4e4;
+$color-gray-600: #809098;
+$color-gray-94: #f0f0f0;
+$color-gray-200: #e6e6e6;
+$color-gray-150: #e3e6e7;
+$color-gray-100: #e2e2e2;
+$color-green-800: #516c1b;
+$color-green-100: #c5f77e;
+$color-red-800: #872a2a;
+$color-red-300: #ff0000;
+$color-red-500: #f4453a;
+$color-red-700: #d7372d;
+$color-red-100: #eb5757;
+$color-accent: #ffbb00;
+$color-orange-500: #fabf2c;
+$color-orange-600: #f3b518;
+$color-darkgold: #a07303;
+$color-cyan-blue: #35434a;
+$color-green-700: #2ea46c;
+$color-dark-blue: #253137;
+$color-light-blue: #f6f7f8;
+$color-blue: #122185;
+
+$font-open-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;

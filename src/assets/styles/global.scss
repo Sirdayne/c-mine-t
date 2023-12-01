@@ -1,0 +1,34 @@
+@import './components/google-fonts-open-sans.css';
+@import 'vars';
+@import 'mixins';
+@import 'animations';
+@import 'grid';
+@import 'components';
+@import 'vue-transitions';
+
+html {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+html[lang='jp'] {
+  font-family: 'Open Sans', YuGothic, 'Yu Gothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック',
+    '游ゴシック体', 'メイリオ', Meiryo, 'ＭＳ ゴシック', 'MS Gothic', HiraKakuProN-W3, 'TakaoExゴシック', TakaoExGothic,
+    'Droid Sans Japanese', sans-serif;
+}
+html[lang='cn'] {
+  font-family: 'Open Sans', '微軟正黑體', 'Microsoft JhengHei', 'Microsoft JhengHei UI', '微軟雅黑', 'Microsoft YaHei',
+    'Microsoft YaHei UI', sans-serif;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-size: 1rem;
+  line-height: 1.375;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+a:focus {
+  outline: none;
+}

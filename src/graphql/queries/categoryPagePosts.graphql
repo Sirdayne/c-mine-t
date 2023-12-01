@@ -1,0 +1,75 @@
+query CategoryPagePostsQuery(
+  $short: String
+  $slug: String!
+  $offset: Int = 0
+  $length: Int = 10
+  $hideFromMainPage: Boolean = null
+) {
+  locale(short: $short) {
+    category(slug: $slug) {
+      cacheKey
+      id
+      posts(order: "postPublishedTime", offset: $offset, length: $length, hideFromMainPage: $hideFromMainPage) {
+        data {
+          cacheKey
+          id
+          slug
+          views
+          postTranslate {
+            cacheKey
+            id
+            title
+            avatar
+            published
+            publishedHumanFormat
+            leadText
+            author {
+              cacheKey
+              id
+              slug
+              innovationCircleUrl
+              authorTranslates {
+                cacheKey
+                id
+                name
+              }
+            }
+          }
+          category {
+            cacheKey
+            id
+            slug
+            categoryTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          author {
+            cacheKey
+            id
+            slug
+            authorTranslates {
+              cacheKey
+              id
+              name
+            }
+          }
+          postBadge {
+            cacheKey
+            id
+            label
+            postBadgeTranslates {
+              cacheKey
+              id
+              title
+            }
+          }
+          showShares
+          showStats
+        }
+        postsCount
+      }
+    }
+  }
+}

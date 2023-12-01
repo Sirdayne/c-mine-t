@@ -1,0 +1,9 @@
+@use 'icons' as icon-helpers;
+
+@mixin prev-arrow($fill: #000) {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 25 12' fill='#{icon-helpers.escape-color($fill)}' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.41436 4.99995L7.70726 1.70706L6.29304 0.292847L0.585938 5.99995L6.29304 11.7071L7.70726 10.2928L4.41436 6.99995H25.0002V4.99995H4.41436Z' /%3E%3C/svg%3E%0A");
+}
+
+@mixin next-arrow($fill: #000) {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 25 12' fill='#{icon-helpers.escape-color($fill)}' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.5856 4.99995L17.2927 1.70706L18.707 0.292847L24.4141 5.99995L18.707 11.7071L17.2927 10.2928L20.5856 6.99995H-0.000150681V4.99995H20.5856Z' /%3E%3C/svg%3E%0A");
+}

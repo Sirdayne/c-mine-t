@@ -1,0 +1,34 @@
+### Single item request
+POST https://servedbyadbutler.com/adserve
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+
+{
+  "ID": 169476,
+  "setID": 587754,
+  "type": "json"
+}
+
+### Batch items request
+POST https://servedbyadbutler.com/adserve/multi
+Accept: application/json
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+
+{
+  "ID": 169476,
+  "zoneIDs": [587754, 351405],
+  "type": "json",
+  "clickmode" : "callback",
+  "ads": "all",
+  "limit" : {
+    "587754" : 1,
+    "351405": 2
+  }
+}
+
+### Test empty request for adblock detection
+GET https://servedbyadbutler.com/adserve
+Accept: application/json
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36

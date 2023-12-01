@@ -1,0 +1,29 @@
+query RelatedPostsQuery($short: String, $postId: ID!, $excludeIds: [ID] = [], $relatedLength: Int) {
+  locale(short: $short) {
+    relatedPosts(postId: $postId, excludeIds: $excludeIds, length: $relatedLength) {
+      cacheKey
+      id
+      slug
+      category {
+        cacheKey
+        id
+      }
+      postTranslate {
+        cacheKey
+        avatar
+        title
+        author {
+          cacheKey
+          id
+          slug
+          innovationCircleUrl
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}

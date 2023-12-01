@@ -1,0 +1,18 @@
+query Banners($short: String, $places: [String!]!) {
+  locale(short: $short) {
+    banners(places: $places) {
+      cacheKey
+      id
+      bannerType
+      bannerPlace
+      bannerUrl
+      bannerImage
+      bannerTitle
+      bannerWeight
+      bannerComment
+      bannerPriority
+      bannerCode
+      bannerOptions
+    }
+  }
+}

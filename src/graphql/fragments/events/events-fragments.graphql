@@ -1,0 +1,29 @@
+fragment EventCategoryFragment on EventCategory {
+  id
+  title
+  slug
+  description
+}
+
+fragment EventFragment on Event {
+  id
+  imageUrl
+  title
+  description
+  promocode
+  startDate
+  endDate
+  website
+  city {
+    id
+    title
+  }
+  country {
+    code
+    title
+    code2
+  }
+  categories {
+    ...EventCategoryFragment
+  }
+}

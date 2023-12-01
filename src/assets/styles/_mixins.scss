@@ -1,0 +1,123 @@
+@use 'sass:math';
+@import '~/assets/styles/_vars.scss';
+
+@mixin legacy-grid-container {
+  margin-right: auto;
+  margin-left: auto;
+  box-sizing: border-box;
+  padding-left: $gutter;
+  padding-right: $gutter;
+
+  @media (min-width: $sm) {
+    width: $container-sm;
+    max-width: $container-sm;
+  }
+  @media (min-width: $md) {
+    width: $container-md;
+    max-width: $container-md;
+  }
+  @media (min-width: $lg) {
+    width: $container-lg;
+    max-width: $container-lg;
+  }
+}
+
+@mixin legacy-grid-row {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-right: -$gutter;
+  margin-left: -$gutter;
+  box-sizing: border-box;
+}
+
+@mixin col($size, $columns: $grid-columns) {
+  $width: 100%;
+
+  @if ($columns !=$size) {
+    $width: 100% / $columns * $size;
+  }
+
+  flex-basis: $width;
+  max-width: $width;
+}
+
+@mixin col-basic {
+  flex: 0 0 auto;
+  padding-right: $gutter;
+  padding-left: $gutter;
+  box-sizing: border-box;
+}
+
+@mixin icon-basic($size: 14) {
+  width: $size;
+  height: $size;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@mixin section-title($size: 24px, $weight: 700, $line-height: 30px) {
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $line-height;
+  letter-spacing: -0.02em;
+}
+
+@mixin link-color-accent($color: #000000, $border-bottom-color: #ffbb00, $hover-border-color: #000000) {
+  color: $color;
+  text-decoration: none;
+  border-bottom: 3px solid $border-bottom-color;
+  transition: border-bottom-color 0.15s linear;
+  &:hover {
+    border-bottom: 3px solid $hover-border-color;
+  }
+}
+
+@mixin grid-container {
+  margin: 0 auto;
+
+  @media (min-width: $sm) {
+    max-width: 100%;
+  }
+  @media (min-width: $md) {
+    display: grid;
+    grid-template-columns: 60% calc(40% - 60px);
+    gap: 24px;
+    margin: 0 auto;
+    justify-content: space-between;
+    max-width: 1160px;
+  }
+  @media (min-width: $lg) {
+    display: grid;
+    max-width: 1180px;
+    grid-template-columns: 718px 360px;
+    gap: 40px;
+  }
+}
+
+/// Hack for responsive boxes preseving aspect ratio https://css-tricks.com/aspect-ratio-boxes/
+///
+/// Should be either $aspectRatio or both $width and $height
+///
+/// @param {Numeric} $width - Base width of content, e.g. height of image in box. Required when $aspectRatio is 0
+/// @param {Numeric} $height - All the same as for $width
+/// @param {Numeric} $aspectRatio - Aspect ratio of box, when 0 its calculated from provided $width and $height
+///
+/// Examples:
+/// @include aspect-ratio-box($aspectRatio: 1/2) - box aspect ratio 1/2
+/// @include aspect-ratio-box($aspectRatio: 0.09473684) - box aspect ratio 0.09473684 (Ceros Pages)
+/// @include aspect-ratio-box($width: 640, $height: 480) - box aspect ratio 640/480
+@mixin aspect-ratio-box($width: 0, $height: 0, $aspectRatio: 0) {
+  @if (($aspectRatio != 0 and $width != 0 and $height != 0) or ($aspectRatio == 0 and $width == 0 and $height == 0)) {
+    @error "aspect-ratio-box expects either $aspectRatio or both $width and $height";
+  }
+
+  @if ($aspectRatio == 0) {
+    $aspectRatio: math.div($width, $height);
+  }
+
+  padding-bottom: calc(100% / $aspectRatio);
+}

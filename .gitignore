@@ -1,0 +1,17 @@
+node_modules
+.nuxt
+.idea
+.temp
+.build
+/schema.graphql
+/.env
+.DS_Store
+.eslintcache
+/tests/e2e/test-results
+/tests/e2e/playwright-report/
+/tests/e2e/playwright/.cache/
+/tests/e2e/node_modules/
+/tests/e2e/results.xml
+coverage
+.nuxt-storybook
+storybook-static

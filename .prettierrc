@@ -1,0 +1,7 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "singleAttributePerLine": true,
+  "vueIndentScriptAndStyle": false,
+  "printWidth": 120
+}

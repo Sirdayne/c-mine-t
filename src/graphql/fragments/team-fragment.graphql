@@ -1,0 +1,9 @@
+fragment TeamFragment on Team {
+  id
+  title
+  email
+  twitter
+  linkedin
+  photo
+  job_title
+}

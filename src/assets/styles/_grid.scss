@@ -1,0 +1,26 @@
+@import '_vars.scss';
+@import '_mixins.scss';
+
+.container {
+  @include legacy-grid-container;
+}
+
+.row {
+  @include legacy-grid-row;
+}
+
+.col {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+}
+
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    flex: 0 0 auto;
+    padding-right: $gutter;
+    padding-left: $gutter;
+    box-sizing: border-box;
+    @include col($i);
+  }
+}

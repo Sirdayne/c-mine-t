@@ -1,0 +1,93 @@
+query NewsRotatorQuery($short: String, $promo: Boolean) {
+  locale(short: $short) {
+    editorsPosts {
+      cacheKey
+      id
+      slug
+      postTranslate {
+        cacheKey
+        id
+        title
+        avatar
+        published
+        publishedHumanFormat
+        author {
+          cacheKey
+          id
+          slug
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+      }
+      category {
+        cacheKey
+        id
+        slug
+        categoryTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+      author {
+        cacheKey
+        id
+        slug
+        authorTranslates {
+          cacheKey
+          id
+          name
+        }
+      }
+    }
+    hotPosts(promo: $promo) {
+      cacheKey
+      id
+      slug
+      postTranslate {
+        cacheKey
+        id
+        title
+        avatar
+        published
+        publishedHumanFormat
+        author {
+          cacheKey
+          id
+          slug
+          authorTranslates {
+            cacheKey
+            id
+            name
+          }
+        }
+      }
+      category {
+        cacheKey
+        id
+        slug
+        categoryTranslates {
+          cacheKey
+          id
+          title
+        }
+      }
+      author {
+        cacheKey
+        id
+        slug
+        authorTranslates {
+          cacheKey
+          id
+          name
+        }
+      }
+      views
+      showShares
+      showStats
+    }
+  }
+}

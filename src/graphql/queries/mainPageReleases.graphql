@@ -1,0 +1,38 @@
+query MainPageReleasesQuery($short: String, $length: Int!, $hideFromMainPage: Boolean = false) {
+  locale(short: $short) {
+    pressReleases: category(slug: "press-releases") {
+      ...releasesCategoryFields
+    }
+    marketReleases: category(slug: "market-releases") {
+      ...releasesCategoryFields
+    }
+  }
+}
+
+fragment releasesCategoryFields on Category {
+  cacheKey
+  id
+  slug
+  categoryTranslates {
+    cacheKey
+    id
+    title
+  }
+  posts(length: $length, hideFromMainPage: $hideFromMainPage) {
+    data {
+      cacheKey
+      id
+      slug
+      postTranslate {
+        cacheKey
+        id
+        title
+        avatar
+      }
+      category {
+        cacheKey
+        id
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+query AboutTeam($short: String!) {
+  locale(short: $short) {
+    localAuthors {
+      ...AuthorFragment
+    }
+
+    authors {
+      ...AuthorFragment
+    }
+
+    team {
+      ...TeamFragment
+    }
+
+    localTeam {
+      ...TeamFragment
+    }
+  }
+}

@@ -1,0 +1,17 @@
+query LanguagesQuery($short: String) {
+  locale(short: $short) {
+    languages {
+      cacheKey
+      id
+      code
+      domain
+      gaCode
+      robots
+      short
+      subscribes
+      timezone
+      title
+      hidden
+    }
+  }
+}
