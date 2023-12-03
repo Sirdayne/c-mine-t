@@ -17,16 +17,16 @@ const isMobileBreakpoint = computed(() => store.getters[`viewport/${VIEWPORT.IS_
 
 <template>
   <article class="mb-4 border-default border rounded shadow-md ring-1 ring-gray-100">
-    <div class="flex flex-col md:flex-row">
+    <div class="flex flex-col xs:flex-row">
       <div class="relative">
         <LinkResolver
           :href="`/news/${post.slug}`"
-          class="block md:w-[304px] md:h-[206px] w-auto h-auto"
+          class="block xs:w-[250px] xs:w-[170px] sm:w-[304px] sm:h-[206px] max-w-[368px] max-h-[240px] w-auto h-auto"
         >
           <OptimizedImage
             :src="post.img"
-            :width="304"
-            :height="206"
+            :width="isMobileBreakpoint ? 250 : 304"
+            :height="isMobileBreakpoint ? 170 : 206"
             :fill="isMobileBreakpoint"
           />
           <span class="absolute bottom-2 right-2 px-2 py-1 bg-bg-primary text-[#192024] text-s font-bold uppercase">
@@ -36,17 +36,17 @@ const isMobileBreakpoint = computed(() => store.getters[`viewport/${VIEWPORT.IS_
       </div>
 
       <div>
-        <div class="py-4 pl-5 pr-6 flex flex-col justify-between md:h-[206px]">
+        <div class="py-4 pl-5 pr-6 flex flex-col justify-between xs:h-[170px] sm:h-[206px]">
           <div>
-            <div class="font-semibold text-[19px]">
+            <div class="font-semibold xs:text-[19px] xs:max-sm:text-sm text-lg">
               <LinkResolver :href="`/news/${post.slug}`">
                 {{ post.title }}
               </LinkResolver>
             </div>
-            <span class="hidden lg:block">{{ post.description }}</span>
+            <span class="hidden lg:block xs:mt-3">{{ post.description }}</span>
           </div>
 
-          <div class="flex justify-between mt-6 md:mt-0">
+          <div class="flex justify-between mt-6 xs:mt-0">
             <div class="text-fg-default text-s font-semibold">
               <LinkResolver :href="post.authorUrl"> {{ i18n.by }} {{ post.author }} </LinkResolver>
             </div>
