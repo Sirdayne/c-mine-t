@@ -20,7 +20,7 @@ const props = defineProps<{
         />
       </div>
     </div>
-    <div class="mt-8">
+    <div v-if="props.description" class="mt-8">
       <CtButton
         class="max-md:w-full"
         type="secondary"

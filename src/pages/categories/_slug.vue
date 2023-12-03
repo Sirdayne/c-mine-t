@@ -2,17 +2,17 @@
 import { computed, ref, onMounted } from 'vue';
 import { defineComponent, useContext, useMeta, useRoute, useStore } from '~/lib/framework';
 import { useQuery } from '~/graphql';
-import tagPageQuery from '~/graphql/queries/tagPage.graphql';
 import { useAutoLoadMore } from '~/components/useAutoLoadMore';
 import TagPostList from '~/features/tags/TagPostList.vue';
 import TagPage from '~/pages/tags/TagPage.vue';
 import { ROOT } from '~/store/types';
-import { getTagsPageMeta } from '~/assets/helpers/meta';
+import { getCategoryPageMeta } from '~/assets/helpers/meta';
+import categoryPageQuery from '~/graphql/queries/categoryPage.graphql';
 import { getFormattedDateString } from '~/assets/helpers/dateTime';
 import { pushVirtualPageView } from '~/assets/helpers/dataLayerEvents';
 
 export default defineComponent({
-  name: 'TagsPage',
+  name: 'CategoriesPage',
   components: {
     TagPostList,
     TagPage
@@ -27,13 +27,12 @@ export default defineComponent({
     const context = useContext();
     const postsRef = ref([]);
     const length = ref(15);
-    const CRYPTOPEDIA_TAGS = ['how-to-crypto'];
+    const CRYPTOPEDIA_CATEGORIES = ['explained'];
 
-    const tagQuery = useQuery({
-      query: tagPageQuery,
+    const categoryQuery = useQuery({
+      query: categoryPageQuery,
       variables: {
         short,
-        order: 'postPublishedTime',
         slug: route.value.params.slug,
         offset: 0,
         length,
@@ -53,24 +52,24 @@ export default defineComponent({
     });
 
     const increaseLength = () => {
-      if (!tagQuery.fetching.value) {
+      if (!categoryQuery.fetching.value) {
         length.value = length.value + 15;
       }
     };
 
-    const tagQueryResponse = computed(() => tagQuery?.data?.value?.locale?.tag);
+    const categoryQueryResponse = computed(() => categoryQuery?.data?.value?.locale?.category);
 
-    const tag = computed(() => tagQueryResponse?.value?.tagTranslates?.[0]);
+    const category = computed(() => categoryQueryResponse.value?.categoryTranslates?.[0]);
 
-    const mappedTag = computed(() => {
+    const mappedCategory = computed(() => {
       return {
-        title: tag?.value?.pageTitle ?? tag?.value?.title,
-        description: tag?.value?.description,
-        imgUrl: tagQueryResponse?.value?.avatar
+        title: category?.value?.pageTitle ?? category?.value?.title,
+        description: category?.value?.description,
+        imgUrl: categoryQueryResponse?.value?.avatar
       }
     })
 
-    const postsData = computed(() => tagQueryResponse.value?.posts?.data);
+    const postsData = computed(() => categoryQueryResponse.value?.posts?.data);
 
     const posts = computed(() => {
       const originalPosts = postsData.value || [];
@@ -87,31 +86,33 @@ export default defineComponent({
       }));
     });
 
-    const postsAmount = computed(() => tagQueryResponse?.value?.posts?.postsCount)
+    const postsAmount = computed(() => categoryQueryResponse?.value?.posts?.postsCount)
 
     const postsOffset = computed(() => posts?.value && posts?.value?.length)
 
     const hasMore = computed(() => postsAmount.value > 0 && postsOffset.value < postsAmount.value)
 
-    const alternates = computed(() => tagQueryResponse?.value?.alternates);
+    const alternates = computed(() => categoryQueryResponse?.value?.alternates);
 
     const meta = computed(() => {
       return {
         url: route?.value?.path,
-        title: tag?.value?.metaTitle,
-        description: tag?.value?.metaDescription,
-        keywords: tag?.value?.keywords,
-        image:  tagQueryResponse?.value?.avatar,
-        datePublished: getFormattedDateString(tag?.value?.createdAt),
-        dateModified: getFormattedDateString(tag?.value?.updatedAt),
+        title: category?.value?.metaTitle,
+        description: category?.value?.metaDescription,
+        keywords: category?.value?.keywords,
+        image:  categoryQueryResponse?.value?.avatar,
+        datePublished: getFormattedDateString(category?.value?.createdAt),
+        dateModified: getFormattedDateString(category?.value?.updatedAt),
       }
     });
 
     useMeta(() => {
-      return getTagsPageMeta({
+      return getCategoryPageMeta({
         currentLanguage: currentLanguage.value,
+        amphtmlDisabled: route.value.name === 'market-releases',
         languages: languages.value,
         meta: meta.value,
+        posts: posts.value,
         alternates: alternates.value,
         routeName: route.value.name
       });
@@ -120,14 +121,14 @@ export default defineComponent({
     const virtualPageView = () => {
       pushVirtualPageView({
         url: currentLanguage?.value?.url + route?.value?.path,
-        title: tag?.value?.metaTitle,
+        title: category?.value?.metaTitle,
         category: '',
         tags: [],
       });
     }
 
     const sendChartBeatPageView = () => {
-      if (CRYPTOPEDIA_TAGS.includes(route?.value?.params?.slug)) {
+      if (CRYPTOPEDIA_CATEGORIES.includes(route?.value?.params?.slug)) {
         context?.$chartBeat.sendPageView({
           title: document?.title,
           path: route?.value?.path,
@@ -139,9 +140,9 @@ export default defineComponent({
     }
 
     return {
-      mappedTag,
+      mappedCategory,
       posts,
-      tagQuery,
+      categoryQuery,
       postsRef,
       isRtl
     }
@@ -151,14 +152,14 @@ export default defineComponent({
 
 <template>
   <TagPage
-      v-if="mappedTag && mappedTag.title"
-      :entity="mappedTag"
+      v-if="mappedCategory && mappedCategory.title"
+      :entity="mappedCategory"
   >
     <TagPostList
         v-if="posts && posts.length > 0"
         ref="postsRef"
         :posts="posts"
-        :fetching="tagQuery.fetching.value"
+        :fetching="categoryQuery.fetching.value"
     />
   </TagPage>
 </template>

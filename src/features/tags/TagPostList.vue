@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { TagPostI } from './TagPostI';
 import TagPost from './TagPost.vue';
+import TagSpinner from '~/features/tags/TagSpinner.vue';
 
 defineProps<{
   posts: TagPostI[];
+  fetching: boolean;
 }>();
 </script>
 
@@ -15,6 +17,7 @@ defineProps<{
     >
       <TagPost :post="post" />
     </div>
+    <TagSpinner v-if="fetching" />
   </div>
 </template>
 
